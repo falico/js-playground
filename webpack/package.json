@@ -4,7 +4,7 @@
   "description": "Playing with webpack",
   "main": "./js/profile.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --history-api-fallback"
+    "dev": "BUILD_DEV=1 BUILD_PRERELEASE=1 webpack-dev-server --hot --inline --history-api-fallback"
   },
   "keywords": [
     "webpack",

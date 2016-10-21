@@ -1,5 +1,10 @@
 var webpack = require('webpack');
 
+var buildVarsPlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false')),
+  __PRERELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_PRERELEASE || 'false'))
+});
+
 module.exports = {
   devtool: "source-map",
   entry: [
@@ -10,6 +15,9 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/static/'
   },
+  plugins: [
+    buildVarsPlugin
+  ],
   module: {
     loaders: [
       {
