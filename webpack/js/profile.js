@@ -3,7 +3,6 @@ require('../css/styles.css');
 
 var timeline = require('./timeline.js');
 var user = {
-  name : "David Quiros",
   messages : [
     "hello",
     "coffee!",
@@ -12,5 +11,5 @@ var user = {
 };
 
 var timelineModule = new timeline(user);
-timelineModule.setHeader();
+timelineModule.setHeader(user.name);
 timelineModule.setTimeline();
