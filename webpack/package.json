@@ -1,0 +1,25 @@
+{
+  "name": "webpack-test",
+  "version": "1.0.0",
+  "description": "Playing with webpack",
+  "main": "./js/profile.js",
+  "scripts": {
+    "start": "webpack-dev-server --hot --inline --history-api-fallback"
+  },
+  "keywords": [
+    "webpack",
+    "webpack-dev-server"
+  ],
+  "author": "quiaro",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "lodash": "^4.16.4",
+    "webpack": "^1.13.2"
+  },
+  "devDependencies": {
+    "css-loader": "^0.25.0",
+    "style-loader": "^0.13.1",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
