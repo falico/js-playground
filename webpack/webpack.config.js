@@ -5,18 +5,22 @@ var buildVarsPlugin = new webpack.DefinePlugin({
   __PRERELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_PRERELEASE || 'false'))
 });
 
+var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
+
 module.exports = {
   devtool: "source-map",
-  entry: [
-    './js/profile.js'
-  ],
+  entry: {
+    profile: './js/profile.js',
+    feed: './js/feed.js'
+  },
   output: {
     path: __dirname + '/static',
-    filename: 'bundle.js',
+    filename: '[name].js',
     publicPath: '/static/'
   },
   plugins: [
-    buildVarsPlugin
+    buildVarsPlugin,
+    commonsPlugin
   ],
   module: {
     loaders: [

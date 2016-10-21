@@ -5,4 +5,6 @@ var user = require('./user').USER;
 
 var timelineModule = new timeline(user);
 timelineModule.setHeader(user.name);
-timelineModule.setTimeline();
+if (__PRERELEASE__) {
+  timelineModule.secretFeature(user.messages);
+}
