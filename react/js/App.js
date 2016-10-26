@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import StatelessWidget from './StatelessWidget';
 import StatefulWidget from './StatefulWidget';
+import ButtonMixed from './ButtonMixed';
+import LabelMixed from './LabelMixed';
 
 class App extends React.Component {
   constructor() {
@@ -43,6 +45,9 @@ class App extends React.Component {
           <br/>
           <StatefulWidget ref="blue" update={this.updateColor} />
           {this.state.blue}
+          <br/>
+          <ButtonMixed text='Clickable button' />
+          <LabelMixed text='Mouseover label' />
         </div>
     )
   }
