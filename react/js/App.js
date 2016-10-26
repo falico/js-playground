@@ -1,11 +1,11 @@
 import React from 'react';
-
-// const App = () => <h1>Stateless function component</h1>
+import Widget from './Widget';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = { txt: 'Component state text' }
+    this.update = this.update.bind(this)
   }
   update(e) {
     this.setState({txt: e.target.value })
@@ -14,8 +14,7 @@ class App extends React.Component {
     return (
         <div>
           <h1>{this.props.txt}</h1>
-          <p>{this.state.txt}</p>
-          <input type='text' onChange={this.update.bind(this)}/>
+          <Widget txt={this.state.txt} update={this.update} />
         </div>
     )
   }
