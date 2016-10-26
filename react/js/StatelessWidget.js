@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Stateless function component
 const Widget = (props) => {
   return (
       <div>
