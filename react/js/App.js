@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import StatelessWidget from './StatelessWidget';
-import StatefulWidget from './StatefulWidget';
+import NumberInput from './NumberInput';
 import ButtonMixed from './ButtonMixed';
 import LabelMixed from './LabelMixed';
 
@@ -19,9 +19,9 @@ class App extends React.Component {
   }
   updateColor(e) {
     this.setState({
-      red: ReactDOM.findDOMNode(this.refs.red.refs.inp).value,
-      green: ReactDOM.findDOMNode(this.refs.green.refs.inp).value,
-      blue: ReactDOM.findDOMNode(this.refs.blue.refs.inp).value
+      red: ReactDOM.findDOMNode(this.refs.red.refs.ui_control).value,
+      green: ReactDOM.findDOMNode(this.refs.green.refs.ui_control).value,
+      blue: ReactDOM.findDOMNode(this.refs.blue.refs.ui_control).value
     })
   }
   updateText(e) {
@@ -35,16 +35,32 @@ class App extends React.Component {
           <h1>{this.props.txt}</h1>
           <StatelessWidget txt={this.state.txt} update={this.updateText} />
           <br/>
-          <StatefulWidget ref="red" update={this.updateColor}>
-            Content in stateful widget yielded!
-          </StatefulWidget>
-          {this.state.red}
+          <NumberInput
+            ref="red"
+            min={0}
+            max={255}
+            step={1}
+            val={+this.state.red}
+            label="Red"
+            update={this.updateColor} />
           <br/>
-          <StatefulWidget ref="green" update={this.updateColor} />
-          {this.state.green}
+          <NumberInput
+            ref="green"
+            min={0}
+            max={255}
+            step={1}
+            val={+this.state.green}
+            label="Green"
+            update={this.updateColor} />
           <br/>
-          <StatefulWidget ref="blue" update={this.updateColor} />
-          {this.state.blue}
+          <NumberInput
+            ref="blue"
+            min={0}
+            max={255}
+            step={1}
+            val={+this.state.blue}
+            label="Blue"
+            update={this.updateColor} />
           <br/>
           <ButtonMixed text='Clickable button' />
           <LabelMixed text='Mouseover label' />
