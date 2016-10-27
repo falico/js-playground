@@ -2,10 +2,13 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: "source-map",
-  entry: './js/main.js',
+  entry: {
+    main: './js/main.js',
+    transpiler: './js/transpiler.js'
+  },
   output: {
     path: __dirname + '/static',
-    filename: 'index.js',
+    filename: '[name].js',
     publicPath: '/static/'
   },
   module: {
