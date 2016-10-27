@@ -14,6 +14,7 @@ class TranspilerApp extends React.Component {
     let code = e.target.value;
     try {
       this.setState({
+        input: e.target.value,
         output: babel.transform(code, {
           stage: 0,
           loose: 'all'
