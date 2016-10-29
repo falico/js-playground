@@ -4,7 +4,8 @@ module.exports = {
   devtool: "source-map",
   entry: {
     main: './js/main.js',
-    transpiler: './js/transpiler.js'
+    transpiler: './js/transpiler.js',
+    formValidation: './js/form-validation.js'
   },
   output: {
     path: __dirname + '/static',
