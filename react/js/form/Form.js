@@ -12,6 +12,14 @@ class Form extends React.Component {
     }
   }
   updateTitle(e) {
+    this.setState({
+      title: {
+        value: e.target.value,
+        error: ''
+      }
+    })
+  }
+  validateTitle(e) {
     const value = e.target.value;
     if (value.length > 5) {
       this.setState({
@@ -21,13 +29,11 @@ class Form extends React.Component {
         }
       })
     } else {
-      this.setState({
-        title: {
-          value,
-          error: ''
-        }
-      })
+      this.updateTitle(e);
     }
+  }
+  submitForm() {
+    console.log('Submitting form ...');
   }
   render () {
     return (
@@ -37,7 +43,9 @@ class Form extends React.Component {
           placeHolder='Enter title'
           value={this.state.title.value}
           update={this.updateTitle.bind(this)}
+          validate={this.validateTitle.bind(this)}
           errorMsg={this.state.title.error} />
+        <button type="submit" onClick={this.submitForm.bind(this)}>Submit</button>
       </form>
     )
   }
