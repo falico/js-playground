@@ -1,0 +1,16 @@
+exports[`test Validation input renders without error 1`] = `
+<div>
+  <label>
+    <span>
+      Input label
+    </span>
+    <input
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="Input placeholder"
+      type="text"
+      value="test" />
+  </label>
+  
+</div>
+`;
