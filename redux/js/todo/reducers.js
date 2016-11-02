@@ -6,10 +6,11 @@ const initialState = {
   todos: {}
 }
 
+let todoId = 1;
+
 function createTodo(text) {
-  let id = new Date().getTime();
   return {
-    id: id,
+    id: todoId++,
     text,
     completed: false
   }
@@ -36,9 +37,9 @@ function todos(state = {}, action) {
       let id = action.payload.id;
       return {
         ...state,
-        todos[id]: {
-          ...todos[id],
-          completed: !todos[id].completed
+        [id]: {
+          ...(state[id]),
+          completed: !state[id].completed
         }
       }
     default:

@@ -12,8 +12,10 @@
   "author": "quiaro",
   "license": "ISC",
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "redux": "^3.6.0",
     "webpack": "^1.13.2"
   },
   "devDependencies": {
@@ -24,6 +26,9 @@
     "webpack-dev-server": "^1.16.2"
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }

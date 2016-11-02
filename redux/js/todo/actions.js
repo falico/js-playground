@@ -1,7 +1,7 @@
 export const ACTIONS = {
-   ADD_TODO: 'ADD_TODO'
-   REMOVE_TODO: 'REMOVE_TODO'
-   TOGGLE_TODO: 'TOGGLE_TODO'
+   ADD_TODO: 'ADD_TODO',
+   REMOVE_TODO: 'REMOVE_TODO',
+   TOGGLE_TODO: 'TOGGLE_TODO',
    SET_VISIBILITY_FILTER: 'SET_VISIBILITY_FILTER'
 };
 
@@ -12,9 +12,11 @@ export const VisibilityFilters = {
 }
 
 export const addTodo = (text) => {
-  type: ACTIONS.ADD_TODO,
-  payload: {
-    text
+  return {
+    type: ACTIONS.ADD_TODO,
+    payload: {
+      text
+    }
   }
 }
 
@@ -38,7 +40,7 @@ export const toggleTodo = (id) => {
 
 export const setVisibilityFilter = (filter) => {
   return {
-    type: ACTIONS.TOGGLE_TODO,
+    type: ACTIONS.SET_VISIBILITY_FILTER,
     payload: {
       filter
     }
