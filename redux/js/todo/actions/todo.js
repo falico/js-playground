@@ -1,10 +1,14 @@
 import { ACTIONS } from './constants'
 
+let todoId = 1;
+
 export const addTodo = (text) => {
   return {
     type: ACTIONS.ADD_TODO,
     payload: {
-      text
+      id: todoId++,
+      text,
+      completed: false
     }
   }
 }
