@@ -38,7 +38,7 @@ function todos(state = {}, action) {
       return {
         ...state,
         [id]: {
-          ...(state[id]),
+          ...state[id],
           completed: !state[id].completed
         }
       }
