@@ -1,10 +1,5 @@
 import { combineReducers } from 'redux'
-import { ACTIONS, VisibilityFilters } from './actions'
-
-const initialState = {
-  visibilityFilter: VisibilityFilters.SHOW_ALL,
-  todos: {}
-}
+import { ACTIONS, VisibilityFilters } from '../actions/constants'
 
 let todoId = 1;
 

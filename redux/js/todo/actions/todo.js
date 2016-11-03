@@ -1,15 +1,4 @@
-export const ACTIONS = {
-   ADD_TODO: 'ADD_TODO',
-   REMOVE_TODO: 'REMOVE_TODO',
-   TOGGLE_TODO: 'TOGGLE_TODO',
-   SET_VISIBILITY_FILTER: 'SET_VISIBILITY_FILTER'
-};
-
-export const VisibilityFilters = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
-  SHOW_ACTIVE: 'SHOW_ACTIVE'
-}
+import { ACTIONS } from './constants'
 
 export const addTodo = (text) => {
   return {
