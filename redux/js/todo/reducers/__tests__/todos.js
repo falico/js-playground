@@ -1,5 +1,5 @@
-import todos from './todos'
-import { ACTIONS } from '../actions/constants'
+import todos from '../todos'
+import { ACTIONS } from '../../actions/constants'
 
 describe('todos reducer', () => {
   it('should handle initial state', () => {

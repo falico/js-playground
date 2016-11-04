@@ -1,5 +1,5 @@
-import { ACTIONS } from './constants'
-import * as actions from './todo'
+import { ACTIONS } from '../constants'
+import * as actions from '../todo'
 
 describe('todo actions', () => {
   it('addTodo should create "add todo" action', () => {
@@ -26,7 +26,7 @@ describe('todo actions', () => {
     expect(actions.toggleTodo(101)).toEqual({
       type: ACTIONS.TOGGLE_TODO,
       payload: {
-        id: 101    
+        id: 101
       }
     })
   })
