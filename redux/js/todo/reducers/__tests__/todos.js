@@ -92,7 +92,7 @@ describe('todos reducer', () => {
     })
   })
 
-  it('should handle TOGGLE_TODO', () => {
+  it('should handle toggling a todo', () => {
     expect(
       todos({
         1: {

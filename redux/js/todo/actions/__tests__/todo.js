@@ -2,7 +2,7 @@ import { ACTIONS } from '../constants'
 import * as actions from '../todo'
 
 describe('todo actions', () => {
-  it('addTodo should create "add todo" action', () => {
+  it('should create an "add todo" action', () => {
     expect(actions.addTodo('Use Redux')).toEqual({
       type: ACTIONS.ADD_TODO,
       payload: {
@@ -13,7 +13,7 @@ describe('todo actions', () => {
     })
   })
 
-  it('setVisibilityFilter should create "set visibility filter" action', () => {
+  it('should create a "set visibility filter" action', () => {
     expect(actions.setVisibilityFilter('filter text')).toEqual({
       type: ACTIONS.SET_VISIBILITY_FILTER,
       payload: {
@@ -22,7 +22,7 @@ describe('todo actions', () => {
     })
   })
 
-  it('toggleTodo should create TOGGLE_TODO action', () => {
+  it('should create a "toggle todo" action', () => {
     expect(actions.toggleTodo(101)).toEqual({
       type: ACTIONS.TOGGLE_TODO,
       payload: {
