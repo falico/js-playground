@@ -1,17 +1,21 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-// import renderer from 'react-test-renderer';
-import Footer from '../Footer';
+import React from 'react'
+import { Provider } from 'react-redux'
+import renderer from 'react-test-renderer'
+import Footer from '../Footer'
+import Store from '../../__mocks__/store'
 
 describe('Footer', () => {
-  xit('renders', () => {
-    const component = shallow(
-      <Footer />
+
+  it('renders', () => {
+    const component = renderer.create(
+      <Provider store={Store({})}>
+        <Footer />
+      </Provider>,
     );
 
-    console.log(component.debug());
+    // console.log(component.debug());
 
-    let tree = component.debug().toJSON();
+    let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 })

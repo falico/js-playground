@@ -1,0 +1,23 @@
+exports[`Footer renders 1`] = `
+<p>
+  Show:
+   
+  <button
+    href="#"
+    onClick={[Function]}>
+    All
+  </button>
+  , 
+  <button
+    href="#"
+    onClick={[Function]}>
+    Active
+  </button>
+  , 
+  <button
+    href="#"
+    onClick={[Function]}>
+    Completed
+  </button>
+</p>
+`;
