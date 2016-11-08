@@ -8,6 +8,12 @@ import { VisibilityFilters } from '../../actions/constants'
 describe('VisibleTodoList', () => {
 
   it('should set a todos prop', () => {
+    // Preserve value
+    const warnFn = console.warn;
+
+    // Mock values
+    console.warn = jest.fn();
+
     const component = shallow(
       <VisibleTodoList store={Store({
         todos: {}
@@ -17,6 +23,10 @@ describe('VisibleTodoList', () => {
     const todoList = component.find(TodoList);
     expect(todoList.length).toBeTruthy();
     expect(todoList.prop('todos')).toEqual({});
+    expect(console.warn).toHaveBeenCalled();
+
+    // Restore original values
+    console.warn = warnFn;
   })
 
   it("should return all todos if the visiblity filter value is set to show all", () => {

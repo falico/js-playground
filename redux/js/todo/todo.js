@@ -4,8 +4,17 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import todoApp from './reducers/index'
 import App from './components/App'
+import * as State from './utils/state'
 
-let store = createStore(todoApp)
+const initialState = State.load();
+let store = createStore(todoApp, initialState);
+
+store.subscribe(() => {
+  let state = store.getState();
+  State.save({
+    todos: state.todos
+  })
+});
 
 render(
   <Provider store={store}>

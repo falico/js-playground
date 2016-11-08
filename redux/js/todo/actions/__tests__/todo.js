@@ -3,10 +3,11 @@ import * as actions from '../todo'
 
 describe('todo actions', () => {
   it('should create an "add todo" action', () => {
-    expect(actions.addTodo('Use Redux')).toEqual({
+    let addAction = actions.addTodo('Use Redux');
+    expect(addAction).toEqual({
       type: ACTIONS.ADD_TODO,
       payload: {
-        id: 1,
+        id: addAction.payload.id,
         text: 'Use Redux',
         completed: false
       }
