@@ -1,21 +1,22 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import todoApp from './reducers/index'
 import App from './components/App'
-import * as State from './utils/state'
-import throttle from 'lodash/throttle'
+import * as Store from './app/store'
+import { save as saveState } from './app/state'
 
-const initialState = State.load();
-let store = createStore(todoApp, initialState);
+let subscriptions = [{
+  delay: 600,
+  fn() {
+    saveState({
+      todos: store.getState().todos
+    })
+  }
+}]
 
-store.subscribe(throttle(() => {
-  let state = store.getState();
-  State.save({
-    todos: state.todos
-  })
-}, 1000));
+let store = Store.configure({
+  subscriptions
+});
 
 render(
   <Provider store={store}>

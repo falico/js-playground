@@ -1,16 +1,19 @@
 import * as State from '../state'
 import localStorageMock from '../../__mocks__/localStorage'
 
-describe('state persistance', () => {
+describe('App State', () => {
+
   beforeEach(() => {
     window.localStorage = localStorageMock;
+  })
+
+  afterEach(() => {
+    localStorage && localStorage.clear();
   })
 
   it('should return a state value from local storage if it exists', () => {
     localStorage.setItem('state', JSON.stringify({a: 1, b: 2}))
     expect(State.load()).toEqual({a: 1, b: 2})
-    // Reset state
-    localStorage.clear()
   })
 
   it('should return undefined if an initial state has not been persisted', () => {
