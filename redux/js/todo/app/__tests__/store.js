@@ -21,8 +21,8 @@ describe('App Store', () => {
     })
   })
 
-  it('should allow delayed subscriptions to run after each state update', (async) => {
-    jest.useFakeTimers();
+  it('should allow delayed subscriptions to run after each state update', () => {
+    jest.useRealTimers()
 
     let mockFn = jest.fn();
     let store = Store.configure({
@@ -31,21 +31,22 @@ describe('App Store', () => {
         delay: 0
       }]
     });
+
     let stateUpdates = new Promise((resolve, reject) => {
+      store.dispatch(addTodo('todo 1'))
+      store.dispatch(addTodo('todo 2'))
+      store.dispatch(addTodo('todo 3'))
+
       setTimeout(() => {
-        store.dispatch(addTodo('todo 1'))
-        store.dispatch(addTodo('todo 2'))
-        store.dispatch(addTodo('todo 3'))
-        resolve()
-      }, 2)
+        resolve();
+      }, 1)
+
     });
 
     return stateUpdates.then(() => {
-      // The subscription function will be called once though the state
-      // was updated on three different occasions
-      expect(mockFn).toHaveBeenCalledTimes(1);
       expect(Object.keys(store.getState().todos).length).toEqual(3);
+      expect(mockFn).toHaveBeenCalledTimes(1);
     })
-  })
+  });
 
 })
