@@ -7,6 +7,21 @@ import { VisibilityFilters } from '../../actions/constants'
 
 describe('VisibleTodoList', () => {
 
+  const todosList = {
+    0: {
+      id: 0,
+      completed: true
+    },
+    1: {
+      id: 1,
+      completed: false
+    },
+    2: {
+      id: 2,
+      completed: true
+    }
+  };
+
   it('should set a todos prop', () => {
     // Preserve value
     const warnFn = console.warn;
@@ -30,16 +45,6 @@ describe('VisibleTodoList', () => {
   })
 
   it("should return all todos if the visiblity filter value is set to show all", () => {
-    const todosList = {
-      0: {
-        id: 0,
-        completed: true
-      },
-      1: {
-        id: 1,
-        completed: false
-      }
-    };
     const component = shallow(
       <VisibleTodoList store={Store({
         todos: todosList,
@@ -51,16 +56,6 @@ describe('VisibleTodoList', () => {
   })
 
   it("should return completed todos only if the visiblity filter value is set to show completed", () => {
-    const todosList = {
-      0: {
-        id: 0,
-        completed: true
-      },
-      1: {
-        id: 1,
-        completed: false
-      }
-    };
     const component = shallow(
       <VisibleTodoList store={Store({
         todos: todosList,
@@ -72,24 +67,24 @@ describe('VisibleTodoList', () => {
       0: {
         id: 0,
         completed: true
+      },
+      2: {
+        id: 2,
+        completed: true
       }
     });
   })
 
   it("should return an empty object if the visiblity filter value is set to show completed and there are no completed todo items", () => {
-    const todosList = {
+    const items = {
       0: {
         id: 0,
-        completed: false
-      },
-      1: {
-        id: 1,
         completed: false
       }
     };
     const component = shallow(
       <VisibleTodoList store={Store({
-        todos: todosList,
+        todos: items,
         visibilityFilter: VisibilityFilters.SHOW_COMPLETED
       })} />
     );
@@ -98,16 +93,6 @@ describe('VisibleTodoList', () => {
   })
 
   it("should return active todos only if the visiblity filter value is set to show active", () => {
-    const todosList = {
-      0: {
-        id: 0,
-        completed: true
-      },
-      1: {
-        id: 1,
-        completed: false
-      }
-    };
     const component = shallow(
       <VisibleTodoList store={Store({
         todos: todosList,
@@ -124,19 +109,15 @@ describe('VisibleTodoList', () => {
   })
 
   it("should return an empty object if the visiblity filter value is set to show active and there are no active todo items", () => {
-    const todosList = {
+    const items = {
       0: {
         id: 0,
-        completed: true
-      },
-      1: {
-        id: 1,
         completed: true
       }
     };
     const component = shallow(
       <VisibleTodoList store={Store({
-        todos: todosList,
+        todos: items,
         visibilityFilter: VisibilityFilters.SHOW_ACTIVE
       })} />
     );
