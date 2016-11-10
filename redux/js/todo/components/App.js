@@ -8,7 +8,7 @@ const App = ({params}) => (
   <div>
     <AddTodo />
     <VisibleTodoList />
-    <RouteVisibleTodoList filter={params.filter || 'all'} />
+    <RouteVisibleTodoList />
     <Footer />
   </div>
 )
