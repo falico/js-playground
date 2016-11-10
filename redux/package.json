@@ -4,7 +4,7 @@
   "description": "Playing with redux",
   "main": "./js/todo/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --hot --inline",
+    "dev": "webpack-dev-server --hot --inline --history-api-fallback",
     "test": "jest --watch"
   },
   "keywords": [
