@@ -1,23 +1,60 @@
 exports[`Footer renders 1`] = `
-<p>
-  Show:
-   
-  <button
-    href="#"
-    onClick={[Function]}>
-    All
-  </button>
-  , 
-  <button
-    href="#"
-    onClick={[Function]}>
-    Active
-  </button>
-  , 
-  <button
-    href="#"
-    onClick={[Function]}>
-    Completed
-  </button>
-</p>
+<div>
+  <p>
+    Click the filters to see the 
+    <b>
+      top
+    </b>
+     list change
+  </p>
+  <div>
+    Show:
+     
+    <button
+      href="#"
+      onClick={[Function]}>
+      All
+    </button>
+    , 
+    <button
+      href="#"
+      onClick={[Function]}>
+      Active
+    </button>
+    , 
+    <button
+      href="#"
+      onClick={[Function]}>
+      Completed
+    </button>
+  </div>
+  <div>
+    <p>
+      Click the filters to see the 
+      <b>
+        URL & the bottom
+      </b>
+       list change
+    </p>
+    Show:
+     
+    <a
+      onClick={[Function]}
+      style={Object {}}>
+      All
+    </a>
+    , 
+    <a
+      onClick={[Function]}
+      style={Object {}}>
+      Active
+    </a>
+    , 
+    <a
+      onClick={[Function]}
+      style={Object {}}>
+      Completed
+    </a>
+  </div>
+</div>
 `;
