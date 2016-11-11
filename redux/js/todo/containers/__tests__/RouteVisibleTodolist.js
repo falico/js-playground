@@ -7,19 +7,29 @@ import Router from '../../__mocks__/router'
 
 describe('RouteVisibleTodoList', () => {
 
+  const todo1 = {
+    id: "1",
+    text: 'Get state from store',
+    completed: true
+  };
+  const todo2 = {
+    id: "2",
+    text: 'Transform state for UI consumption',
+    completed: false
+  };
+  const todo3 = {
+    id: "3",
+    text: 'Pass transformed state to UI',
+    completed: true
+  };
+
   const todosList = {
-    0: {
-      id: 0,
-      completed: true
+    byId: {
+      "1": todo1,
+      "2": todo2,
+      "3": todo3
     },
-    1: {
-      id: 1,
-      completed: false
-    },
-    2: {
-      id: 2,
-      completed: true
-    }
+    allIds: ["1", "2", "3"]
   };
 
   it('should set a todos prop', () => {
@@ -31,13 +41,16 @@ describe('RouteVisibleTodoList', () => {
 
     const component = shallow(
       <RouteVisibleTodoList store={Store({
-        todos: {}
+        todos: {
+          byId: {},
+          allIds: []
+        }
       })} router={mockRouter} />
     ).shallow();
 
     const todoList = component.find(TodoList);
     expect(todoList.length).toBeTruthy();
-    expect(todoList.prop('todos')).toEqual({});
+    expect(todoList.prop('todos')).toEqual([]);
   })
 
   it("should return all todos if the filter value is set to 'all'", () => {
@@ -53,7 +66,7 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual(todosList);
+    expect(component.find(TodoList).prop('todos')).toEqual([todo1, todo2, todo3]);
   })
 
   it("should return completed todos only if the filter value is set to 'completed'", () => {
@@ -69,25 +82,17 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual({
-      0: {
-        id: 0,
-        completed: true
-      },
-      2: {
-        id: 2,
-        completed: true
-      }
-    });
+    expect(component.find(TodoList).prop('todos')).toEqual([todo1, todo3]);
   })
 
-  it("should return an empty object if the filter value is set to 'completed' and there are no completed todo items", () => {
+  it("should return an empty array if the filter value is set to 'completed' and there are no completed todo items", () => {
     const todosListActive = {
-      0: {
-        id: 0,
-        completed: false
-      }
+      byId: {
+        "2": todo2
+      },
+      allIds: ["2"]
     };
+
     const mockRouter = Router({
       params: {
         filter: 'completed'
@@ -100,7 +105,7 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual({});
+    expect(component.find(TodoList).prop('todos')).toEqual([]);
   })
 
   it("should return active todos only if the filter value is set to 'active'", () => {
@@ -116,21 +121,17 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual({
-      1: {
-        id: 1,
-        completed: false
-      }
-    });
+    expect(component.find(TodoList).prop('todos')).toEqual([todo2]);
   })
 
-  it("should return an empty object if the filter value is set to 'active' and there are no active todo items", () => {
+  it("should return an empty array if the filter value is set to 'active' and there are no active todo items", () => {
     const todosListCompleted = {
-      0: {
-        id: 0,
-        completed: true
-      }
+      byId: {
+        "1": todo1
+      },
+      allIds: ["1"]
     };
+
     const mockRouter = Router({
       params: {
         filter: 'active'
@@ -143,7 +144,7 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual({});
+    expect(component.find(TodoList).prop('todos')).toEqual([]);
   })
 
   it("should dispatch an action on click", () => {

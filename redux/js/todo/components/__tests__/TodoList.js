@@ -9,18 +9,18 @@ describe('Todo List', () => {
 
   beforeEach(() => {
     handler = jest.fn();
-    todos = {
-      0: {
+    todos = [
+      {
         id: 0,
         completed: true,
         text: 'first'
       },
-      1: {
+      {
         id: 1,
         completed: true,
         text: 'second'
       }
-    }
+    ]
   })
 
   it('should render a list of todo items', () => {
@@ -35,10 +35,10 @@ describe('Todo List', () => {
       <TodoList todos={todos} onTodoClick={handler} />
     );
     component.find(Todo).at(0).simulate('click', { preventDefault() {} });
-    expect(handler.mock.calls[0][0]).toEqual("0");
+    expect(handler.mock.calls[0][0]).toEqual(0);
 
     component.find(Todo).at(1).simulate('click', { preventDefault() {} });
-    expect(handler.mock.calls[1][0]).toEqual("1");
+    expect(handler.mock.calls[1][0]).toEqual(1);
 
     expect(handler).toHaveBeenCalledTimes(2);
   })

@@ -5,106 +5,64 @@ describe('todos reducer', () => {
   it('should handle initial state', () => {
     expect(
       todos(undefined, {})
-    ).toEqual({})
+    ).toEqual({
+      byId: {},
+      allIds: []
+    })
   })
 
   it('should handle adding a todo', () => {
     expect(
-      todos({}, {
-        type: ACTIONS.ADD_TODO,
-        payload: {
-          id: 0,
-          text: 'Run the tests',
-          completed: false
-        }
-      })
-    ).toEqual({
-      0: {
-        id: 0,
-        text: 'Run the tests',
-        completed: false
-      }
-    })
-
-    expect(
       todos({
-        0: {
-          id: 0,
-          text: 'Run the tests',
-          completed: false
-        }
-      }, {
-        type: ACTIONS.ADD_TODO,
-        payload: {
-          id: 1,
-          text: 'Use Redux',
-          completed: true
-        }
-
-      })
-    ).toEqual({
-      0: {
-        id: 0,
-        text: 'Run the tests',
-        completed: false,
-      },
-      1: {
-        id: 1,
-        text: 'Use Redux',
-        completed: true
-      }
-    })
-
-    expect(
-      todos({
-        0: {
-          id: 0,
-          text: 'Run the tests',
-          completed: false
+        byId: {
+          1: {
+            id: 1,
+            text: 'Write tests',
+            completed: false
+          }
         },
-        1: {
-          id: 1,
-          text: 'Use Redux',
-          completed: true
-        }
+        allIds: [1]
       }, {
         type: ACTIONS.ADD_TODO,
         payload: {
           id: 2,
-          text: 'Fix the tests'
+          text: 'Write documentation',
+          completed: false
         }
       })
     ).toEqual({
-      0: {
-        id: 0,
-        text: 'Run the tests',
-        completed: false
+      byId: {
+        1: {
+          id: 1,
+          text: 'Write tests',
+          completed: false
+        },
+        2: {
+          id: 2,
+          text: 'Write documentation',
+          completed: false
+        }
       },
-      1: {
-        id: 1,
-        text: 'Use Redux',
-        completed: true
-      },
-      2: {
-        id: 2,
-        text: 'Fix the tests'
-      }
+      allIds: [1, 2]
     })
   })
 
   it('should handle toggling a todo', () => {
     expect(
       todos({
-        1: {
-          id: 1,
-          text: 'Run the tests',
-          completed: false
+        byId: {
+          0: {
+            id: 0,
+            text: 'Use Redux',
+            completed: false
+          },
+          1: {
+            id: 1,
+            text: 'Run the tests',
+            completed: false
+          }
         },
-        0: {
-          id: 0,
-          text: 'Use Redux',
-          completed: false
-        }
+        allIds: [0, 1]
       }, {
         type: ACTIONS.TOGGLE_TODO,
         payload: {
@@ -112,16 +70,19 @@ describe('todos reducer', () => {
         }
       })
     ).toEqual({
-      1: {
-        id: 1,
-        text: 'Run the tests',
-        completed: true
+      byId: {
+        0: {
+          id: 0,
+          text: 'Use Redux',
+          completed: false
+        },
+        1: {
+          id: 1,
+          text: 'Run the tests',
+          completed: true
+        }
       },
-      0: {
-        id: 0,
-        text: 'Use Redux',
-        completed: false
-      }
+      allIds: [0, 1]
     })
   })
 

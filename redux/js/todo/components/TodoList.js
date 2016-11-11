@@ -3,24 +3,24 @@ import Todo from './Todo'
 
 const TodoList = ({ todos, onTodoClick }) => (
   <ul>
-    {Object.keys(todos).map(id =>
+    {todos.map(todo =>
       <Todo
-        key={id}
-        {...todos[id]}
-        onClick={() => onTodoClick(id)}
+        key={todo.id}
+        {...todo}
+        onClick={() => onTodoClick(todo.id)}
       />
     )}
   </ul>
 )
 
 TodoList.propTypes = {
-  todos: PropTypes.shape({
-    id: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+  todos: React.PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
       text: PropTypes.string.isRequired
     })
-  }),
+  ),
   onTodoClick: PropTypes.func.isRequired
 }
 
