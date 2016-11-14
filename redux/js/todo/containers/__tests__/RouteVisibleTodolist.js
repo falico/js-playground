@@ -145,7 +145,7 @@ describe('RouteVisibleTodoList', () => {
     expect(component.prop('todos')).toEqual([]);
   })
 
-  it("should dispatch an action on click", () => {
+  it("should dispatch actions", () => {
     const store = Store({
       todos: todosList
     });
@@ -160,8 +160,9 @@ describe('RouteVisibleTodoList', () => {
       <RouteVisibleTodoList store={store} router={mockRouter} />
     ).shallow();
 
-    component.prop('onTodoClick')();
-    expect(store.dispatch).toHaveBeenCalled();
+    component.prop('toggleTodo')();
+    component.prop('receiveTodos')();
+    expect(store.dispatch).toHaveBeenCalledTimes(2);
   })
 
 })

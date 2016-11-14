@@ -31,4 +31,14 @@ describe('todo actions', () => {
       }
     })
   })
+
+  it('should create a "receive todos" action', () => {
+    expect(actions.receiveTodos('filter value', [])).toEqual({
+      type: ACTIONS.RECEIVE_TODOS,
+      payload: {
+        filter: 'filter value',
+        response: []
+      }
+    })
+  })
 })

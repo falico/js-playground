@@ -24,6 +24,15 @@ export const toggleTodo = (id) => ({
     }
   })
 
+export const receiveTodos = (filter, response) => ({
+    type: ACTIONS.RECEIVE_TODOS,
+    payload: {
+      filter,
+      response
+    }
+  })
+
+
 export const setVisibilityFilter = (filter) => ({
     type: ACTIONS.SET_VISIBILITY_FILTER,
     payload: {
