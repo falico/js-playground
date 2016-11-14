@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import RouteVisibleTodoList from '../RouteVisibleTodoList';
-import TodoList from '../../components/TodoList';
 import Store from '../../__mocks__/store'
 import Router from '../../__mocks__/router'
 
@@ -48,9 +47,8 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    const todoList = component.find(TodoList);
-    expect(todoList.length).toBeTruthy();
-    expect(todoList.prop('todos')).toEqual([]);
+    expect(component.length).toBeTruthy();
+    expect(component.prop('todos')).toEqual([]);
   })
 
   it("should return all todos if the filter value is set to 'all'", () => {
@@ -66,7 +64,7 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual([todo1, todo2, todo3]);
+    expect(component.prop('todos')).toEqual([todo1, todo2, todo3]);
   })
 
   it("should return completed todos only if the filter value is set to 'completed'", () => {
@@ -82,7 +80,7 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual([todo1, todo3]);
+    expect(component.prop('todos')).toEqual([todo1, todo3]);
   })
 
   it("should return an empty array if the filter value is set to 'completed' and there are no completed todo items", () => {
@@ -105,7 +103,7 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual([]);
+    expect(component.prop('todos')).toEqual([]);
   })
 
   it("should return active todos only if the filter value is set to 'active'", () => {
@@ -121,7 +119,7 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual([todo2]);
+    expect(component.prop('todos')).toEqual([todo2]);
   })
 
   it("should return an empty array if the filter value is set to 'active' and there are no active todo items", () => {
@@ -144,7 +142,7 @@ describe('RouteVisibleTodoList', () => {
       })} router={mockRouter} />
     ).shallow();
 
-    expect(component.find(TodoList).prop('todos')).toEqual([]);
+    expect(component.prop('todos')).toEqual([]);
   })
 
   it("should dispatch an action on click", () => {
@@ -162,7 +160,7 @@ describe('RouteVisibleTodoList', () => {
       <RouteVisibleTodoList store={store} router={mockRouter} />
     ).shallow();
 
-    component.find(TodoList).prop('onTodoClick')();
+    component.prop('onTodoClick')();
     expect(store.dispatch).toHaveBeenCalled();
   })
 

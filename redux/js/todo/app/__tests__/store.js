@@ -7,16 +7,21 @@ describe('App Store', () => {
 
   beforeEach(() => {
     window.localStorage = localStorageMock;
+    window.__DEV__ = false;
   })
 
   afterEach(() => {
     localStorage && localStorage.clear();
+    window.__DEV__ = undefined;
   })
 
   it('should return a store with the initial default state for the app', () => {
     let store = Store.configure();
     expect(store.getState()).toEqual({
-      todos: {},
+      todos: {
+        byId: {},
+        allIds: []
+      },
       visibilityFilter: VisibilityFilters.SHOW_ALL
     })
   })
@@ -44,7 +49,7 @@ describe('App Store', () => {
     });
 
     return stateUpdates.then(() => {
-      expect(Object.keys(store.getState().todos).length).toEqual(3);
+      expect(store.getState().todos.allIds.length).toEqual(3);
       expect(mockFn).toHaveBeenCalledTimes(1);
     })
   });
