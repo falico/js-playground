@@ -1,8 +1,21 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router';
 import TodoList from '../components/TodoList'
 import { toggleTodo } from '../actions/todo'
 import { getVisibleTodos } from '../reducers/index'
+
+class RouteVisibleTodoList extends Component {
+  componentDidMount() {
+    console.table(this.props);
+  }
+  componentDidUpdate(/* prevProps */) {
+    console.table(this.props);
+  }
+  render() {
+    return <TodoList {...this.props} />
+  }
+}
 
 const mapStateToProps = (state, { params }) => {
   return {
@@ -10,9 +23,9 @@ const mapStateToProps = (state, { params }) => {
   }
 }
 
-const RouteVisibleTodoList = withRouter(connect(
+RouteVisibleTodoList = withRouter(connect(
   mapStateToProps,
   { onTodoClick: toggleTodo }
-)(TodoList))
+)(RouteVisibleTodoList))
 
 export default RouteVisibleTodoList
