@@ -1,5 +1,6 @@
 import { ACTIONS } from './constants'
 import { generateUUID } from '../common/utils'
+import * as api from '../api/index'
 
 export const addTodo = (text) => ({
     type: ACTIONS.ADD_TODO,
@@ -24,7 +25,7 @@ export const toggleTodo = (id) => ({
     }
   })
 
-export const receiveTodos = (filter, response) => ({
+const receiveTodos = (filter, response) => ({
     type: ACTIONS.RECEIVE_TODOS,
     payload: {
       filter,
@@ -32,6 +33,11 @@ export const receiveTodos = (filter, response) => ({
     }
   })
 
+// Asynchronous action creator
+export const fetchTodos = (filter) =>
+  api.fetchTodos(filter).then(response =>
+    receiveTodos(filter, response)
+  );
 
 export const setVisibilityFilter = (filter) => ({
     type: ACTIONS.SET_VISIBILITY_FILTER,

@@ -3,6 +3,10 @@ import debounce from 'lodash/debounce'
 import todoApp from '../reducers/index'
 import { load as loadState } from './state'
 
+/*
+ * Replace store.dispatch with a function that logs all actions passed to
+ * store.dispatch before calling the original store.dispatch function
+ */
 const addLoggingToDispatch = (store) => {
   const rawDispatch = store.dispatch;
 
@@ -21,6 +25,21 @@ const addLoggingToDispatch = (store) => {
   };
 }
 
+/*
+ * Replace store.dispatch with a function that accepts an action object or
+ * a promise that will resolve to an action object
+ */
+const addPromiseSupportToDispatch = (store) => {
+  const rawDispatch = store.dispatch;
+
+  return (action) => {
+    if (typeof action.then === 'function') {
+      return action.then(rawDispatch);
+    }
+    return rawDispatch(action);
+  }
+}
+
 export const configure = (opts = {}) => {
   const initialState = loadState();
   const subscriptions = opts.subscriptions || [];
@@ -30,6 +49,8 @@ export const configure = (opts = {}) => {
   if (__DEV__) {
     store.dispatch = addLoggingToDispatch(store);
   }
+
+  store.dispatch = addPromiseSupportToDispatch(store);
 
   while(subscriptions.length) {
     let subscription = subscriptions.pop();
