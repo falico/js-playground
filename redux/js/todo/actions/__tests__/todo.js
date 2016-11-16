@@ -2,6 +2,7 @@ import { ACTIONS } from '../constants'
 import * as actions from '../todo'
 
 describe('todo actions', () => {
+
   it('should create an "add todo" action', () => {
     let addAction = actions.addTodo('Use Redux');
     expect(addAction).toEqual({
@@ -32,13 +33,24 @@ describe('todo actions', () => {
     })
   })
 
-  it('should create a "receive todos" action', () => {
-    expect(actions.receiveTodos('filter value', [])).toEqual({
-      type: ACTIONS.RECEIVE_TODOS,
-      payload: {
-        filter: 'filter value',
-        response: []
-      }
+  it('should create a "receive todos" action via an asynchronous action creator "fetchTodos"', () => {
+    return actions.fetchTodos('filter value').then(response => {
+      expect(response).toEqual({
+        type: ACTIONS.RECEIVE_TODOS,
+        payload: {
+          filter: 'filter value',
+          response: [{
+            id: 1,
+            text: 'Pick oranges',
+            completed: false
+          },
+          {
+            id: 2,
+            text: 'Read the news',
+            completed: true
+          }]
+        }
+      });
     })
   })
 })

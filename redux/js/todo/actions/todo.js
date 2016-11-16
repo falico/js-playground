@@ -25,7 +25,7 @@ export const toggleTodo = (id) => ({
     }
   })
 
-const receiveTodos = (filter, response) => ({
+export const receiveTodos = (filter, response) => ({
     type: ACTIONS.RECEIVE_TODOS,
     payload: {
       filter,

@@ -40,5 +40,10 @@
       "es2015",
       "react"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^../api/index": "<rootDir>/js/todo/__mocks__/api/index"
+    }
   }
 }
