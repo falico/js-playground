@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import RouteVisibleTodoList from '../RouteVisibleTodoList';
+import { ACTIONS } from '../../actions/constants';
 import Store from '../../__mocks__/store'
 import Router from '../../__mocks__/router'
 
@@ -143,6 +144,33 @@ describe('RouteVisibleTodoList', () => {
     ).shallow();
 
     expect(component.prop('todos')).toEqual([]);
+  })
+
+  it("should fetch todo data on mount", () => {
+
+    const mockRouter = Router({
+      params: {
+        filter: 'all'
+      }
+    });
+
+    const component = mount(
+      <RouteVisibleTodoList store={Store({
+        todos: todosList
+      })} router={mockRouter} />
+    );
+
+    const storeDispatch = component.prop('store').dispatch;
+    const fetchPromise = storeDispatch.mock.calls[0][0];
+
+    // On mount, the store's dispatch function will have been called with
+    // a promise to fetch the data for the todos
+    expect(component.prop('store').dispatch).toHaveBeenCalled();
+    return fetchPromise.then(action => {
+      // Once resolved, we verify that the promise was resolved to the correct
+      // action type
+      expect(action.type).toEqual(ACTIONS.RECEIVE_TODOS);
+    });
   })
 
   it("should dispatch actions", () => {
