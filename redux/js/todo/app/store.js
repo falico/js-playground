@@ -7,18 +7,17 @@ import { load as loadState } from './state'
  * Replace store.dispatch with a function that logs all actions passed to
  * store.dispatch before calling the original store.dispatch function
  */
-const addLoggingToDispatch = (store) => {
-  const rawDispatch = store.dispatch;
+const logger = (store) => (next) => {
 
   if (!console.group) {
-    return rawDispatch;
+    return next;
   }
 
   return (action) => {
     console.group(action.type);
     console.log('%c prev state', 'color: gray', store.getState());
     console.log('%c action', 'color: blue', action);
-    const returnValue = rawDispatch(action);
+    const returnValue = next(action);
     console.log('%c next state', 'color: green', store.getState());
     console.groupEnd(action.type);
     return returnValue;
@@ -29,28 +28,31 @@ const addLoggingToDispatch = (store) => {
  * Replace store.dispatch with a function that accepts an action object or
  * a promise that will resolve to an action object
  */
-const addPromiseSupportToDispatch = (store) => {
-  const rawDispatch = store.dispatch;
-
-  return (action) => {
-    if (typeof action.then === 'function') {
-      return action.then(rawDispatch);
-    }
-    return rawDispatch(action);
+const promiseSupport = (store) => (next) => (action) => {
+  if (typeof action.then === 'function') {
+    return action.then(next);
   }
+  return next(action);
+}
+
+const wrapDispatchWithMiddlewares = (store, middlewares) => {
+  middlewares.slice().reverse().forEach(middleware =>
+    store.dispatch = middleware(store)(store.dispatch)
+  )
 }
 
 export const configure = (opts = {}) => {
   const initialState = loadState();
   const subscriptions = opts.subscriptions || [];
+  const middlewares = [ promiseSupport ];
 
   let store = createStore(todoApp, initialState);
 
   if (__DEV__) {
-    store.dispatch = addLoggingToDispatch(store);
+    middlewares.push(logger);
   }
 
-  store.dispatch = addPromiseSupportToDispatch(store);
+  wrapDispatchWithMiddlewares(store, middlewares);
 
   while(subscriptions.length) {
     let subscription = subscriptions.pop();
