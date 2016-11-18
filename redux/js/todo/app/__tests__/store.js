@@ -22,6 +22,14 @@ describe('App Store', () => {
         byId: {},
         allIds: []
       },
+      todosFromServer: {
+        byId: {},
+        listByFilter: {
+          all: [],
+          active: [],
+          completed: []
+        }
+      },
       visibilityFilter: VisibilityFilters.SHOW_ALL
     })
   })

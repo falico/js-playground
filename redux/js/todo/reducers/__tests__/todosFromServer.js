@@ -7,7 +7,7 @@ describe('todos from server reducer', () => {
       todosFromServer(undefined, {})
     ).toEqual({
       byId: {},
-      idsByFilter: {
+      listByFilter: {
         all: [],
         active: [],
         completed: []
@@ -19,7 +19,7 @@ describe('todos from server reducer', () => {
     expect(
       todosFromServer({
         byId: {},
-        idsByFilter: {
+        listByFilter: {
           all: [],
           active: [],
           completed: []
@@ -45,7 +45,7 @@ describe('todos from server reducer', () => {
           completed: false
         }
       },
-      idsByFilter: {
+      listByFilter: {
         all: [1],
         active: [],
         completed: []
@@ -68,7 +68,7 @@ describe('todos from server reducer', () => {
             completed: false
           }
         },
-        idsByFilter: {
+        listByFilter: {
           all: [1, 2],
           active: [],
           completed: []
@@ -99,7 +99,7 @@ describe('todos from server reducer', () => {
           completed: false
         }
       },
-      idsByFilter: {
+      listByFilter: {
         all: [1, 2],
         active: [2],
         completed: []
@@ -111,7 +111,7 @@ describe('todos from server reducer', () => {
     expect(
       todosFromServer({
         byId: {},
-        idsByFilter: {
+        listByFilter: {
           all: [],
           active: [],
           completed: []
@@ -137,7 +137,7 @@ describe('todos from server reducer', () => {
           completed: true
         }
       },
-      idsByFilter: {
+      listByFilter: {
         all: [],
         active: [],
         completed: [1]

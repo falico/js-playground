@@ -29,7 +29,7 @@ describe('RouteVisibleTodoList', () => {
       "2": todo2,
       "3": todo3
     },
-    idsByFilter: {
+    listByFilter: {
       all: [1, 2, 3],
       active: [2],
       completed: [1, 3]
@@ -47,7 +47,7 @@ describe('RouteVisibleTodoList', () => {
       <RouteVisibleTodoList store={Store({
         todosFromServer: {
           byId: {},
-          idsByFilter: {
+          listByFilter: {
             all: [],
             active: [],
             completed: []
@@ -97,7 +97,7 @@ describe('RouteVisibleTodoList', () => {
       byId: {
         "2": todo2
       },
-      idsByFilter: {
+      listByFilter: {
         all: [],
         active: ["2"],
         completed: []
@@ -140,7 +140,7 @@ describe('RouteVisibleTodoList', () => {
       byId: {
         "1": todo1
       },
-      idsByFilter: {
+      listByFilter: {
         all: [],
         active: [],
         completed: ["1"]
