@@ -29,7 +29,11 @@ describe('RouteVisibleTodoList', () => {
       "2": todo2,
       "3": todo3
     },
-    allIds: ["1", "2", "3"]
+    idsByFilter: {
+      all: [1, 2, 3],
+      active: [2],
+      completed: [1, 3]
+    }
   };
 
   it('should set a todos prop', () => {
@@ -41,9 +45,13 @@ describe('RouteVisibleTodoList', () => {
 
     const component = shallow(
       <RouteVisibleTodoList store={Store({
-        todos: {
+        todosFromServer: {
           byId: {},
-          allIds: []
+          idsByFilter: {
+            all: [],
+            active: [],
+            completed: []
+          }
         }
       })} router={mockRouter} />
     ).shallow();
@@ -61,7 +69,7 @@ describe('RouteVisibleTodoList', () => {
 
     const component = shallow(
       <RouteVisibleTodoList store={Store({
-        todos: todosList
+        todosFromServer: todosList
       })} router={mockRouter} />
     ).shallow();
 
@@ -77,7 +85,7 @@ describe('RouteVisibleTodoList', () => {
 
     const component = shallow(
       <RouteVisibleTodoList store={Store({
-        todos: todosList
+        todosFromServer: todosList
       })} router={mockRouter} />
     ).shallow();
 
@@ -89,7 +97,11 @@ describe('RouteVisibleTodoList', () => {
       byId: {
         "2": todo2
       },
-      allIds: ["2"]
+      idsByFilter: {
+        all: [],
+        active: ["2"],
+        completed: []
+      }
     };
 
     const mockRouter = Router({
@@ -100,7 +112,7 @@ describe('RouteVisibleTodoList', () => {
 
     const component = shallow(
       <RouteVisibleTodoList store={Store({
-        todos: todosListActive
+        todosFromServer: todosListActive
       })} router={mockRouter} />
     ).shallow();
 
@@ -116,7 +128,7 @@ describe('RouteVisibleTodoList', () => {
 
     const component = shallow(
       <RouteVisibleTodoList store={Store({
-        todos: todosList
+        todosFromServer: todosList
       })} router={mockRouter} />
     ).shallow();
 
@@ -128,7 +140,11 @@ describe('RouteVisibleTodoList', () => {
       byId: {
         "1": todo1
       },
-      allIds: ["1"]
+      idsByFilter: {
+        all: [],
+        active: [],
+        completed: ["1"]
+      }
     };
 
     const mockRouter = Router({
@@ -139,7 +155,7 @@ describe('RouteVisibleTodoList', () => {
 
     const component = shallow(
       <RouteVisibleTodoList store={Store({
-        todos: todosListCompleted
+        todosFromServer: todosListCompleted
       })} router={mockRouter} />
     ).shallow();
 
@@ -156,7 +172,7 @@ describe('RouteVisibleTodoList', () => {
 
     const component = mount(
       <RouteVisibleTodoList store={Store({
-        todos: todosList
+        todosFromServer: todosList
       })} router={mockRouter} />
     );
 
@@ -175,7 +191,7 @@ describe('RouteVisibleTodoList', () => {
 
   it("should dispatch actions", () => {
     const store = Store({
-      todos: todosList
+      todosFromServer: todosList
     });
 
     const mockRouter = Router({
