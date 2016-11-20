@@ -8,9 +8,18 @@ describe('todos from server reducer', () => {
     ).toEqual({
       byId: {},
       listByFilter: {
-        all: [],
-        active: [],
-        completed: []
+        all: {
+          isFetching: false,
+          ids: []
+        },
+        active: {
+          isFetching: false,
+          ids: []
+        },
+        completed: {
+          isFetching: false,
+          ids: []
+        }
       }
     })
   })
@@ -20,9 +29,18 @@ describe('todos from server reducer', () => {
       todosFromServer({
         byId: {},
         listByFilter: {
-          all: [],
-          active: [],
-          completed: []
+          all: {
+            isFetching: true,
+            ids: []
+          },
+          active: {
+            isFetching: false,
+            ids: []
+          },
+          completed: {
+            isFetching: false,
+            ids: []
+          }
         }
       }, {
         type: ACTIONS.RECEIVE_TODOS,
@@ -46,9 +64,18 @@ describe('todos from server reducer', () => {
         }
       },
       listByFilter: {
-        all: [1],
-        active: [],
-        completed: []
+        all: {
+          isFetching: false,
+          ids: [1]
+        },
+        active: {
+          isFetching: false,
+          ids: []
+        },
+        completed: {
+          isFetching: false,
+          ids: []
+        }
       }
     })
   })
@@ -69,9 +96,18 @@ describe('todos from server reducer', () => {
           }
         },
         listByFilter: {
-          all: [1, 2],
-          active: [],
-          completed: []
+          all: {
+            isFetching: false,
+            ids: [1, 2]
+          },
+          active: {
+            isFetching: true,
+            ids: []
+          },
+          completed: {
+            isFetching: false,
+            ids: []
+          }
         }
       }, {
         type: ACTIONS.RECEIVE_TODOS,
@@ -100,9 +136,18 @@ describe('todos from server reducer', () => {
         }
       },
       listByFilter: {
-        all: [1, 2],
-        active: [2],
-        completed: []
+        all: {
+          isFetching: false,
+          ids: [1, 2]
+        },
+        active: {
+          isFetching: false,
+          ids: [2]
+        },
+        completed: {
+          isFetching: false,
+          ids: []
+        }
       }
     })
   })
@@ -112,9 +157,18 @@ describe('todos from server reducer', () => {
       todosFromServer({
         byId: {},
         listByFilter: {
-          all: [],
-          active: [],
-          completed: []
+          all: {
+            isFetching: true,
+            ids: []
+          },
+          active: {
+            isFetching: false,
+            ids: []
+          },
+          completed: {
+            isFetching: true,
+            ids: []
+          }
         }
       }, {
         type: ACTIONS.RECEIVE_TODOS,
@@ -138,9 +192,18 @@ describe('todos from server reducer', () => {
         }
       },
       listByFilter: {
-        all: [],
-        active: [],
-        completed: [1]
+        all: {
+          isFetching: true,
+          ids: []
+        },
+        active: {
+          isFetching: false,
+          ids: []
+        },
+        completed: {
+          isFetching: false,
+          ids: [1]
+        }
       }
     })
   })

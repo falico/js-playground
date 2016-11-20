@@ -12,6 +12,10 @@ export const getVisibleServerTodos = (state, filter) => {
   return todosFromServerSelectors.getVisibleServerTodos(state.todosFromServer, filter)
 }
 
+export const getIsFetching = (state, filter) => {
+  return todosFromServerSelectors.getIsFetching(state.todosFromServer, filter)
+}
+
 const todoApp = combineReducers({
   visibilityFilter,
   todos,

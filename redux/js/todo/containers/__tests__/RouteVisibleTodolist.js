@@ -30,9 +30,18 @@ describe('RouteVisibleTodoList', () => {
       "3": todo3
     },
     listByFilter: {
-      all: [1, 2, 3],
-      active: [2],
-      completed: [1, 3]
+      all: {
+        isFetching: false,
+        ids: ["1", "2", "3"]
+      },
+      active: {
+        isFetching: false,
+        ids: ["2"]
+      },
+      completed: {
+        isFetching: false,
+        ids: ["1", "3"]
+      }
     }
   };
 
@@ -48,9 +57,10 @@ describe('RouteVisibleTodoList', () => {
         todosFromServer: {
           byId: {},
           listByFilter: {
-            all: [],
-            active: [],
-            completed: []
+            all: {
+              isFetching: false,
+              ids: []
+            }
           }
         }
       })} router={mockRouter} />
@@ -94,13 +104,12 @@ describe('RouteVisibleTodoList', () => {
 
   it("should return an empty array if the filter value is set to 'completed' and there are no completed todo items", () => {
     const todosListActive = {
-      byId: {
-        "2": todo2
-      },
+      byId: {},
       listByFilter: {
-        all: [],
-        active: ["2"],
-        completed: []
+        completed: {
+          isFetching: false,
+          ids: []
+        }
       }
     };
 
@@ -137,13 +146,12 @@ describe('RouteVisibleTodoList', () => {
 
   it("should return an empty array if the filter value is set to 'active' and there are no active todo items", () => {
     const todosListCompleted = {
-      byId: {
-        "1": todo1
-      },
+      byId: {},
       listByFilter: {
-        all: [],
-        active: [],
-        completed: ["1"]
+        active: {
+          isFetching: false,
+          ids: []
+        }
       }
     };
 
@@ -177,7 +185,8 @@ describe('RouteVisibleTodoList', () => {
     );
 
     const storeDispatch = component.prop('store').dispatch;
-    const fetchPromise = storeDispatch.mock.calls[0][0];
+
+    const fetchPromise = storeDispatch.mock.calls[1][0];
 
     // On mount, the store's dispatch function will have been called with
     // a promise to fetch the data for the todos
@@ -187,6 +196,30 @@ describe('RouteVisibleTodoList', () => {
       // action type
       expect(action.type).toEqual(ACTIONS.RECEIVE_TODOS);
     });
+  })
+
+  it("should display a loading indicator if no data has been fetched and the fetching flag is set", () => {
+    const mockRouter = Router({
+      params: {
+        filter: 'all'
+      }
+    });
+
+    const component = mount(
+      <RouteVisibleTodoList store={Store({
+        todosFromServer: {
+          byId: {},
+          listByFilter: {
+            all: {
+              isFetching: true,
+              ids: []
+            }
+          }
+        }
+      })} router={mockRouter} />
+    );
+
+    expect(component.find('p').text()).toEqual('Loading ...');
   })
 
   it("should dispatch actions", () => {
@@ -205,7 +238,7 @@ describe('RouteVisibleTodoList', () => {
     ).shallow();
 
     component.prop('toggleTodo')();
-    component.prop('receiveTodos')();
+    component.prop('requestTodos')();
     expect(store.dispatch).toHaveBeenCalledTimes(2);
   })
 

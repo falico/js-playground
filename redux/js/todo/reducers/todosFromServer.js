@@ -11,6 +11,10 @@ export const getVisibleServerTodos = (state, filter) => {
   return ids.map(id => fromById.getTodo(state.byId, id));
 }
 
+export const getIsFetching = (state, filter) => {
+  return fromCreateList.getIsFetching(state.listByFilter[filter]);
+}
+
 /*
  * ----- REDUCERS
  */

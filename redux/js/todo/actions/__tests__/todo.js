@@ -16,19 +16,19 @@ describe('todo actions', () => {
   })
 
   it('should create a "set visibility filter" action', () => {
-    expect(actions.setVisibilityFilter('filter text')).toEqual({
+    expect(actions.setVisibilityFilter('filter value')).toEqual({
       type: ACTIONS.SET_VISIBILITY_FILTER,
       payload: {
-        filter: 'filter text'
+        filter: 'filter value'
       }
     })
   })
 
-  it('should create a "toggle todo" action', () => {
-    expect(actions.toggleTodo(101)).toEqual({
-      type: ACTIONS.TOGGLE_TODO,
+  it('should create a "request todos" action', () => {
+    expect(actions.requestTodos('filter value')).toEqual({
+      type: ACTIONS.REQUEST_TODOS,
       payload: {
-        id: 101
+        filter: 'filter value'
       }
     })
   })

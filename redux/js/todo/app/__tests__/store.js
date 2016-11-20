@@ -25,9 +25,18 @@ describe('App Store', () => {
       todosFromServer: {
         byId: {},
         listByFilter: {
-          all: [],
-          active: [],
-          completed: []
+          all: {
+            isFetching: false,
+            ids: []
+          },
+          active: {
+            isFetching: false,
+            ids: []
+          },
+          completed: {
+            isFetching: false,
+            ids: []
+          }
         }
       },
       visibilityFilter: VisibilityFilters.SHOW_ALL
