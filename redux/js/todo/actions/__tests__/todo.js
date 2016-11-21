@@ -24,32 +24,29 @@ describe('todo actions', () => {
     })
   })
 
-  it('should create a "request todos" action', () => {
-    expect(actions.requestTodos('filter value')).toEqual({
-      type: ACTIONS.REQUEST_TODOS,
-      payload: {
+  it('should create an asynchronous action creator "fetchTodos" that emits two actions', () => {
+    const dispatchMock = jest.fn();
+    return actions.fetchTodos('filter value')(dispatchMock).then(response => {
+      // First action
+      expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.REQUEST_TODOS);
+      expect(dispatchMock.mock.calls[0][0].payload).toEqual({
         filter: 'filter value'
-      }
-    })
-  })
+      });
 
-  it('should create a "receive todos" action via an asynchronous action creator "fetchTodos"', () => {
-    return actions.fetchTodos('filter value').then(response => {
-      expect(response).toEqual({
-        type: ACTIONS.RECEIVE_TODOS,
-        payload: {
-          filter: 'filter value',
-          response: [{
-            id: 1,
-            text: 'Pick oranges',
-            completed: false
-          },
-          {
-            id: 2,
-            text: 'Read the news',
-            completed: true
-          }]
-        }
+      // Second action (after async operation)
+      expect(dispatchMock.mock.calls[1][0].type).toEqual(ACTIONS.RECEIVE_TODOS);
+      expect(dispatchMock.mock.calls[1][0].payload).toEqual({
+        filter: 'filter value',
+        response: [{
+          id: 1,
+          text: 'Pick oranges',
+          completed: false
+        },
+        {
+          id: 2,
+          text: 'Read the news',
+          completed: true
+        }]
       });
     })
   })

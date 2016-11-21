@@ -2,6 +2,13 @@ import { ACTIONS } from './constants'
 import { generateUUID } from '../common/utils'
 import * as api from '../api/index'
 
+const requestTodos = (filter) => ({
+    type: ACTIONS.REQUEST_TODOS,
+    payload: {
+      filter
+    }
+  })
+
 export const addTodo = (text) => ({
     type: ACTIONS.ADD_TODO,
     payload: {
@@ -25,13 +32,6 @@ export const toggleTodo = (id) => ({
     }
   })
 
-export const requestTodos = (filter) => ({
-    type: ACTIONS.REQUEST_TODOS,
-    payload: {
-      filter
-    }
-  })
-
 export const receiveTodos = (filter, response) => ({
     type: ACTIONS.RECEIVE_TODOS,
     payload: {
@@ -40,11 +40,27 @@ export const receiveTodos = (filter, response) => ({
     }
   })
 
-// Asynchronous action creator
-export const fetchTodos = (filter) =>
-  api.fetchTodos(filter).then(response =>
-    receiveTodos(filter, response)
-  );
+/*
+ * Asynchronous action creator: returns a promise that resolves to an action
+ */
+// export const fetchTodos = (filter) =>
+//   api.fetchTodos(filter).then(response =>
+//     receiveTodos(filter, response)
+//   );
+
+/*
+ * Multi-action creator: abstraction that represents multiple actions
+ * dispatched over a period of time. Returns a function (thunk) that
+ * accepts the dispatch function as the callback argument.
+ */
+export const fetchTodos = (filter) => (dispatch) => {
+  dispatch(requestTodos(filter));
+
+  return api.fetchTodos(filter).then(response => {
+    dispatch(receiveTodos(filter, response));
+  });
+}
+
 
 export const setVisibilityFilter = (filter) => ({
     type: ACTIONS.SET_VISIBILITY_FILTER,

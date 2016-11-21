@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from 'redux'
 import debounce from 'lodash/debounce'
 import todoApp from '../reducers/index'
 import { load as loadState } from './state'
-import promiseSupport from 'redux-promise';
 import createLogger from 'redux-logger';
 
 /*
@@ -52,10 +51,21 @@ import createLogger from 'redux-logger';
 //   )
 // }
 
+/*
+ * "Thunk middleware is a powerful composable way to express async action
+ * creators that want to emit several actions during the course of an async
+ * operation" -Dan Abramov
+ */
+const thunk = (store) => (next) => (action) => {
+  typeof action === 'function' ?
+    action(store.dispatch) :
+    next(action);
+}
+
 export const configure = (opts = {}) => {
   const initialState = loadState();
   const subscriptions = opts.subscriptions || [];
-  const middlewares = [ promiseSupport ];
+  const middlewares = [ thunk ];
 
   if (__DEV__) {
     middlewares.push(createLogger());
