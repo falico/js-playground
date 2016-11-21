@@ -186,16 +186,9 @@ describe('RouteVisibleTodoList', () => {
 
     const storeDispatch = component.prop('store').dispatch;
 
-    const fetchPromise = storeDispatch.mock.calls[1][0];
-
-    // On mount, the store's dispatch function will have been called with
-    // a promise to fetch the data for the todos
-    expect(component.prop('store').dispatch).toHaveBeenCalled();
-    return fetchPromise.then(action => {
-      // Once resolved, we verify that the promise was resolved to the correct
-      // action type
-      expect(action.type).toEqual(ACTIONS.RECEIVE_TODOS);
-    });
+    expect(storeDispatch).toHaveBeenCalled();
+    // The dispatch function should have received a thunk as an argument
+    expect(typeof storeDispatch.mock.calls[0][0]).toEqual('function');
   })
 
   it("should display a loading indicator if no data has been fetched and the fetching flag is set", () => {
@@ -238,8 +231,7 @@ describe('RouteVisibleTodoList', () => {
     ).shallow();
 
     component.prop('toggleTodo')();
-    component.prop('requestTodos')();
-    expect(store.dispatch).toHaveBeenCalledTimes(2);
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
   })
 
 })
