@@ -55,10 +55,13 @@ import createLogger from 'redux-logger';
  * "Thunk middleware is a powerful composable way to express async action
  * creators that want to emit several actions during the course of an async
  * operation" -Dan Abramov
+ *
+ * Function was commented out because it is being replaced
+ * with third-party module: redux-thunk
  */
 const thunk = (store) => (next) => (action) => {
   typeof action === 'function' ?
-    action(store.dispatch) :
+    action(store.dispatch, store.getState) :
     next(action);
 }
 

@@ -1,6 +1,7 @@
 import { ACTIONS } from './constants'
 import { generateUUID } from '../common/utils'
 import * as api from '../api/index'
+import { getIsFetching } from '../reducers/todosFromServer';
 
 const requestTodos = (filter) => ({
     type: ACTIONS.REQUEST_TODOS,
@@ -53,7 +54,11 @@ export const receiveTodos = (filter, response) => ({
  * dispatched over a period of time. Returns a function (thunk) that
  * accepts the dispatch function as the callback argument.
  */
-export const fetchTodos = (filter) => (dispatch) => {
+export const fetchTodos = (filter) => (dispatch, getState) => {
+  if (getIsFetching(getState().todosFromServer, filter)) {
+    return Promise.resolve();
+  }
+
   dispatch(requestTodos(filter));
 
   return api.fetchTodos(filter).then(response => {
