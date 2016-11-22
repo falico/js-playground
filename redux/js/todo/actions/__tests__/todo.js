@@ -24,19 +24,31 @@ describe('todo actions', () => {
     })
   })
 
-  it('should create an asynchronous action creator "fetchTodos" that emits two actions', () => {
+  it('should create an async action creator "fetchTodos" that emits two actions if it is not already fetching todos', () => {
     const dispatchMock = jest.fn();
-    return actions.fetchTodos('filter value')(dispatchMock).then(response => {
+    const getState = jest.fn(() => (
+      {
+        todosFromServer: {
+          listByFilter: {
+            completed: {
+              isFetching: false
+            }
+          }
+        }
+      }
+    ));
+
+    return actions.fetchTodos('completed')(dispatchMock, getState).then(response => {
       // First action
       expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.REQUEST_TODOS);
       expect(dispatchMock.mock.calls[0][0].payload).toEqual({
-        filter: 'filter value'
+        filter: 'completed'
       });
 
       // Second action (after async operation)
       expect(dispatchMock.mock.calls[1][0].type).toEqual(ACTIONS.RECEIVE_TODOS);
       expect(dispatchMock.mock.calls[1][0].payload).toEqual({
-        filter: 'filter value',
+        filter: 'completed',
         response: [{
           id: 1,
           text: 'Pick oranges',
@@ -48,6 +60,25 @@ describe('todo actions', () => {
           completed: true
         }]
       });
+    })
+  })
+
+  it('should create an async action creator "fetchTodos" that emits no actions if it is already fetching todos', () => {
+    const dispatchMock = jest.fn();
+    const getState = jest.fn(() => (
+      {
+        todosFromServer: {
+          listByFilter: {
+            completed: {
+              isFetching: true
+            }
+          }
+        }
+      }
+    ));
+
+    return actions.fetchTodos('completed')(dispatchMock, getState).then(response => {
+      expect(dispatchMock.mock.calls).toEqual([]);
     })
   })
 })

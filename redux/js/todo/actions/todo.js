@@ -1,7 +1,7 @@
 import { ACTIONS } from './constants'
 import { generateUUID } from '../common/utils'
 import * as api from '../api/index'
-import { getIsFetching } from '../reducers/todosFromServer';
+import { getIsFetching } from '../reducers/index';
 
 const requestTodos = (filter) => ({
     type: ACTIONS.REQUEST_TODOS,
@@ -55,7 +55,7 @@ export const receiveTodos = (filter, response) => ({
  * accepts the dispatch function as the callback argument.
  */
 export const fetchTodos = (filter) => (dispatch, getState) => {
-  if (getIsFetching(getState().todosFromServer, filter)) {
+  if (getIsFetching(getState(), filter)) {
     return Promise.resolve();
   }
 
