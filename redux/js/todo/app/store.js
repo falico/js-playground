@@ -3,6 +3,7 @@ import debounce from 'lodash/debounce'
 import todoApp from '../reducers/index'
 import { load as loadState } from './state'
 import createLogger from 'redux-logger';
+import thunk from 'redux-thunk'
 
 /*
  * Replace store.dispatch with a function that logs all actions passed to
@@ -59,11 +60,11 @@ import createLogger from 'redux-logger';
  * Function was commented out because it is being replaced
  * with third-party module: redux-thunk
  */
-const thunk = (store) => (next) => (action) => {
-  typeof action === 'function' ?
-    action(store.dispatch, store.getState) :
-    next(action);
-}
+// const thunk = (store) => (next) => (action) => {
+//   typeof action === 'function' ?
+//     action(store.dispatch, store.getState) :
+//     next(action);
+// }
 
 export const configure = (opts = {}) => {
   const initialState = loadState();
