@@ -78,6 +78,7 @@ describe('todo actions', () => {
     ));
 
     return actions.fetchTodos('completed')(dispatchMock, getState).then(response => {
+      // No dispatch calls should have been made
       expect(dispatchMock.mock.calls).toEqual([]);
     })
   })
