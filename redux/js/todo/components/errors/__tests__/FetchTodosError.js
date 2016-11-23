@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme';
-import FetchTodosError from '../FetchTodos'
+import FetchTodosError from '../FetchTodosError'
 
 describe('FetchTodosError', () => {
 
