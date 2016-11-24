@@ -17,6 +17,7 @@ describe('createList reducer', () => {
         }
       })
     ).toEqual({
+      errorMessage: null,
       isFetching: false,
       ids: []
     })
@@ -25,6 +26,7 @@ describe('createList reducer', () => {
   it('should return its current state if the action is not assigned to it', () => {
     expect(
       myList({
+        errorMessage: 'Test error message',
         isFetching: true,
         ids: [1]
       }, {
@@ -33,6 +35,7 @@ describe('createList reducer', () => {
         }
       })
     ).toEqual({
+      errorMessage: 'Test error message',
       isFetching: true,
       ids: [1]
     })
@@ -41,15 +44,17 @@ describe('createList reducer', () => {
   it('should set an isFetching flag on "request todos" action', () => {
     expect(
       myList({
+        errorMessage: null,
         isFetching: false,
         ids: []
       }, {
-        type: ACTIONS.REQUEST_TODOS,
+        type: ACTIONS.FETCH_TODOS_REQUEST,
         payload: {
           filter: 'myList'
         }
       })
     ).toEqual({
+      errorMessage: null,
       isFetching: true,
       ids: []
     })
@@ -58,10 +63,11 @@ describe('createList reducer', () => {
   it('should unset an isFetching flag on "receive todos" action', () => {
     expect(
       myList({
+        errorMessage: null,
         isFetching: true,
         ids: []
       }, {
-        type: ACTIONS.RECEIVE_TODOS,
+        type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter: 'myList',
           response: [
@@ -72,8 +78,53 @@ describe('createList reducer', () => {
         }
       })
     ).toEqual({
+      errorMessage: null,
       isFetching: false,
       ids: [99]
+    })
+  })
+
+  it('should unset an isFetching flag on "receive todos" action', () => {
+    expect(
+      myList({
+        errorMessage: null,
+        isFetching: true,
+        ids: []
+      }, {
+        type: ACTIONS.FETCH_TODOS_SUCCESS,
+        payload: {
+          filter: 'myList',
+          response: [
+            {
+              id: 99
+            }
+          ]
+        }
+      })
+    ).toEqual({
+      errorMessage: null,
+      isFetching: false,
+      ids: [99]
+    })
+  })
+
+  it('should set an error and unset the isFetching flag on "fetch error" action', () => {
+    expect(
+      myList({
+        errorMessage: null,
+        isFetching: true,
+        ids: []
+      }, {
+        type: ACTIONS.FETCH_TODOS_ERROR,
+        payload: {
+          filter: 'myList',
+          message: 'Error on fetch'
+        }
+      })
+    ).toEqual({
+      errorMessage: 'Error on fetch',
+      isFetching: false,
+      ids: []
     })
   })
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+
 import RouteVisibleTodoList from '../RouteVisibleTodoList';
+import FetchTodosError from '../../components/errors/FetchTodosError';
 import { ACTIONS } from '../../actions/constants';
 import Store from '../../__mocks__/store'
 import Router from '../../__mocks__/router'
@@ -31,14 +33,17 @@ describe('RouteVisibleTodoList', () => {
     },
     listByFilter: {
       all: {
+        errorMessage: null,
         isFetching: false,
         ids: ["1", "2", "3"]
       },
       active: {
+        errorMessage: null,
         isFetching: false,
         ids: ["2"]
       },
       completed: {
+        errorMessage: null,
         isFetching: false,
         ids: ["1", "3"]
       }
@@ -215,7 +220,32 @@ describe('RouteVisibleTodoList', () => {
     expect(component.find('p').text()).toEqual('Loading ...');
   })
 
-  it("should dispatch actions", () => {
+  it('should display an error component if it receives an error message', () => {
+    const mockRouter = Router({
+      params: {
+        filter: 'all'
+      }
+    });
+
+    const component = mount(
+      <RouteVisibleTodoList store={Store({
+        todosFromServer: {
+          byId: {},
+          listByFilter: {
+            all: {
+              errorMessage: 'error message',
+              isFetching: false,
+              ids: []
+            }
+          }
+        }
+      })} router={mockRouter} />
+    );
+
+    expect(component.find(FetchTodosError).length).toEqual(1);
+  })
+
+  it('should dispatch actions', () => {
     const store = Store({
       todosFromServer: todosList
     });

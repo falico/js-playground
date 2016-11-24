@@ -26,14 +26,17 @@ describe('App Store', () => {
         byId: {},
         listByFilter: {
           all: {
+            errorMessage: null,
             isFetching: false,
             ids: []
           },
           active: {
+            errorMessage: null,
             isFetching: false,
             ids: []
           },
           completed: {
+            errorMessage: null,
             isFetching: false,
             ids: []
           }

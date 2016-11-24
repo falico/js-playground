@@ -3,13 +3,6 @@ import { generateUUID } from '../common/utils'
 import * as api from '../api/index'
 import { getIsFetching } from '../reducers/index';
 
-const requestTodos = (filter) => ({
-    type: ACTIONS.REQUEST_TODOS,
-    payload: {
-      filter
-    }
-  })
-
 export const addTodo = (text) => ({
     type: ACTIONS.ADD_TODO,
     payload: {
@@ -33,14 +26,6 @@ export const toggleTodo = (id) => ({
     }
   })
 
-export const receiveTodos = (filter, response) => ({
-    type: ACTIONS.RECEIVE_TODOS,
-    payload: {
-      filter,
-      response
-    }
-  })
-
 /*
  * Asynchronous action creator: returns a promise that resolves to an action
  */
@@ -55,14 +40,35 @@ export const receiveTodos = (filter, response) => ({
  * accepts the dispatch function as the callback argument.
  */
 export const fetchTodos = (filter) => (dispatch, getState) => {
+
   if (getIsFetching(getState(), filter)) {
     return Promise.resolve();
   }
 
-  dispatch(requestTodos(filter));
+  dispatch({
+      type: ACTIONS.FETCH_TODOS_REQUEST,
+      payload: {
+        filter
+      }
+    });
 
   return api.fetchTodos(filter).then(response => {
-    dispatch(receiveTodos(filter, response));
+    dispatch({
+        type: ACTIONS.FETCH_TODOS_SUCCESS,
+        payload: {
+          filter,
+          response
+        }
+      });
+  },
+  error => {
+    dispatch({
+      type: ACTIONS.FETCH_TODOS_ERROR,
+      payload: {
+        filter: filter,
+        message: 'fetch todos failed'
+      }
+    })
   });
 }
 

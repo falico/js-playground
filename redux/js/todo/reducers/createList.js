@@ -8,7 +8,7 @@ const createList = (filter) => {
       return state;
     }
     switch (action.type) {
-      case ACTIONS.RECEIVE_TODOS:
+      case ACTIONS.FETCH_TODOS_SUCCESS:
         return action.payload.response.map(todo => todo.id)
       default:
         return state;
@@ -20,16 +20,32 @@ const createList = (filter) => {
       return state;
     }
     switch (action.type) {
-      case ACTIONS.REQUEST_TODOS:
+      case ACTIONS.FETCH_TODOS_REQUEST:
         return true;
-      case ACTIONS.RECEIVE_TODOS:
+      case ACTIONS.FETCH_TODOS_ERROR:
+      case ACTIONS.FETCH_TODOS_SUCCESS:
         return false;
       default:
         return state;
     }
   }
 
+  const errorMessage = (state = null, action) => {
+    if (action.payload && action.payload.filter !== filter) {
+      return state;
+    }
+    switch (action.type) {
+      case ACTIONS.FETCH_TODOS_ERROR:
+        return action.payload.message || 'createList: unexpected error on "ACTIONS.FETCH_TODOS_ERROR"';
+      case ACTIONS.FETCH_TODOS_SUCCESS:
+        return null;
+      default:
+        return state;
+    }
+  }
+
   return combineReducers({
+    errorMessage,
     isFetching,
     ids
   })
@@ -40,3 +56,5 @@ export default createList;
 export const getIds = (state) => state.ids;
 
 export const getIsFetching = (state) => state.isFetching;
+
+export const getFetchError = (state) => state.errorMessage;

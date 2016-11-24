@@ -24,7 +24,7 @@ describe('todo actions', () => {
     })
   })
 
-  it('should create an async action creator "fetchTodos" that emits two actions if it is not already fetching todos', () => {
+  test('async action creator "fetchTodos" emits two actions if it is not already fetching todos', () => {
     const dispatchMock = jest.fn();
     const getState = jest.fn(() => (
       {
@@ -40,13 +40,13 @@ describe('todo actions', () => {
 
     return actions.fetchTodos('completed')(dispatchMock, getState).then(response => {
       // First action
-      expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.REQUEST_TODOS);
+      expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.FETCH_TODOS_REQUEST);
       expect(dispatchMock.mock.calls[0][0].payload).toEqual({
         filter: 'completed'
       });
 
       // Second action (after async operation)
-      expect(dispatchMock.mock.calls[1][0].type).toEqual(ACTIONS.RECEIVE_TODOS);
+      expect(dispatchMock.mock.calls[1][0].type).toEqual(ACTIONS.FETCH_TODOS_SUCCESS);
       expect(dispatchMock.mock.calls[1][0].payload).toEqual({
         filter: 'completed',
         response: [{
@@ -63,7 +63,7 @@ describe('todo actions', () => {
     })
   })
 
-  it('should create an async action creator "fetchTodos" that emits no actions if it is already fetching todos', () => {
+  test('async action creator "fetchTodos" emits no actions if it is already fetching todos', () => {
     const dispatchMock = jest.fn();
     const getState = jest.fn(() => (
       {
@@ -80,6 +80,36 @@ describe('todo actions', () => {
     return actions.fetchTodos('completed')(dispatchMock, getState).then(response => {
       // No dispatch calls should have been made
       expect(dispatchMock.mock.calls).toEqual([]);
+    })
+  })
+
+  test('async action creator "fetchTodos" dispatches an error action if fetching todos fails', () => {
+    const api = require('../api/index');
+    // Mock API call so that it throws an error
+    api.fetchTodos = () => new Promise((resolve, reject) => reject('Fetching todos failed'));
+
+    const dispatchMock = jest.fn();
+    const getState = jest.fn(() => (
+      {
+        todosFromServer: {
+          listByFilter: {
+            completed: {
+              isFetching: false
+            }
+          }
+        }
+      }
+    ));
+
+    return actions.fetchTodos('completed')(dispatchMock, getState).then(() => {
+      // First action
+      expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.FETCH_TODOS_REQUEST);
+      expect(dispatchMock.mock.calls[0][0].payload).toEqual({
+        filter: 'completed'
+      });
+
+      // Second action
+      expect(dispatchMock.mock.calls[1][0].type).toEqual(ACTIONS.FETCH_TODOS_ERROR);
     })
   })
 })

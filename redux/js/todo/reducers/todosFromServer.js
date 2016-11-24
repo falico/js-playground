@@ -15,6 +15,10 @@ export const getIsFetching = (state, filter) => {
   return fromCreateList.getIsFetching(state.listByFilter[filter]);
 }
 
+export const getFetchError = (state, filter) => {
+  return fromCreateList.getFetchError(state.listByFilter[filter]);
+}
+
 /*
  * ----- REDUCERS
  */

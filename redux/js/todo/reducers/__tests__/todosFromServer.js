@@ -9,14 +9,17 @@ describe('todos from server reducer', () => {
       byId: {},
       listByFilter: {
         all: {
+          errorMessage: null,
           isFetching: false,
           ids: []
         },
         active: {
+          errorMessage: null,
           isFetching: false,
           ids: []
         },
         completed: {
+          errorMessage: null,
           isFetching: false,
           ids: []
         }
@@ -30,20 +33,23 @@ describe('todos from server reducer', () => {
         byId: {},
         listByFilter: {
           all: {
+            errorMessage: null,
             isFetching: true,
             ids: []
           },
           active: {
+            errorMessage: null,
             isFetching: false,
             ids: []
           },
           completed: {
+            errorMessage: null,
             isFetching: false,
             ids: []
           }
         }
       }, {
-        type: ACTIONS.RECEIVE_TODOS,
+        type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter: 'all',
           response: [
@@ -65,14 +71,17 @@ describe('todos from server reducer', () => {
       },
       listByFilter: {
         all: {
+          errorMessage: null,
           isFetching: false,
           ids: [1]
         },
         active: {
+          errorMessage: null,
           isFetching: false,
           ids: []
         },
         completed: {
+          errorMessage: null,
           isFetching: false,
           ids: []
         }
@@ -97,20 +106,23 @@ describe('todos from server reducer', () => {
         },
         listByFilter: {
           all: {
+            errorMessage: null,
             isFetching: false,
             ids: [1, 2]
           },
           active: {
+            errorMessage: null,
             isFetching: true,
             ids: []
           },
           completed: {
+            errorMessage: null,
             isFetching: false,
             ids: []
           }
         }
       }, {
-        type: ACTIONS.RECEIVE_TODOS,
+        type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter: 'active',
           response: [
@@ -137,14 +149,17 @@ describe('todos from server reducer', () => {
       },
       listByFilter: {
         all: {
+          errorMessage: null,
           isFetching: false,
           ids: [1, 2]
         },
         active: {
+          errorMessage: null,
           isFetching: false,
           ids: [2]
         },
         completed: {
+          errorMessage: null,
           isFetching: false,
           ids: []
         }
@@ -158,20 +173,23 @@ describe('todos from server reducer', () => {
         byId: {},
         listByFilter: {
           all: {
+            errorMessage: null,
             isFetching: true,
             ids: []
           },
           active: {
+            errorMessage: null,
             isFetching: false,
             ids: []
           },
           completed: {
+            errorMessage: null,
             isFetching: true,
             ids: []
           }
         }
       }, {
-        type: ACTIONS.RECEIVE_TODOS,
+        type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter: 'completed',
           response: [
@@ -193,14 +211,17 @@ describe('todos from server reducer', () => {
       },
       listByFilter: {
         all: {
+          errorMessage: null,
           isFetching: true,
           ids: []
         },
         active: {
+          errorMessage: null,
           isFetching: false,
           ids: []
         },
         completed: {
+          errorMessage: null,
           isFetching: false,
           ids: [1]
         }
