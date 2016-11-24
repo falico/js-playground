@@ -84,27 +84,22 @@ describe('createList reducer', () => {
     })
   })
 
-  it('should unset an isFetching flag on "receive todos" action', () => {
+  it('should add a todo on "add todo" action', () => {
     expect(
       myList({
         errorMessage: null,
-        isFetching: true,
-        ids: []
+        isFetching: false,
+        ids: [1, 2]
       }, {
-        type: ACTIONS.FETCH_TODOS_SUCCESS,
+        type: ACTIONS.ADD_TODO_SUCCESS,
         payload: {
-          filter: 'myList',
-          response: [
-            {
-              id: 99
-            }
-          ]
+          id: 5
         }
       })
     ).toEqual({
       errorMessage: null,
       isFetching: false,
-      ids: [99]
+      ids: [1, 2, 5]
     })
   })
 

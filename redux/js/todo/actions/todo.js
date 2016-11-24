@@ -26,6 +26,13 @@ export const toggleTodo = (id) => ({
     }
   })
 
+export const setVisibilityFilter = (filter) => ({
+    type: ACTIONS.SET_VISIBILITY_FILTER,
+    payload: {
+      filter
+    }
+  })
+
 /*
  * Asynchronous action creator: returns a promise that resolves to an action
  */
@@ -33,6 +40,44 @@ export const toggleTodo = (id) => ({
 //   api.fetchTodos(filter).then(response =>
 //     receiveTodos(filter, response)
 //   );
+
+/*
+ * SERVER ACTIONS: thunks that depend on API calls
+ */
+
+ export const serverAddTodo = (text) => (dispatch) =>
+   api.addTodo(text).then(todo => {
+     dispatch({
+       type: ACTIONS.ADD_TODO_SUCCESS,
+       payload: todo
+     })
+   },
+   error => {
+     dispatch({
+       type: ACTIONS.ADD_TODO_ERROR,
+       payload: {
+         message: 'add todo failed'
+       }
+     })
+   });
+
+ export const serverToggleTodo = (id) => (dispatch) =>
+   api.toggleTodo(id).then(todo => {
+      dispatch({
+        type: ACTIONS.TOGGLE_TODO_SUCCESS,
+        payload: {
+          id
+        }
+      })
+   },
+   error => {
+     dispatch({
+       type: ACTIONS.TOGGLE_TODO_ERROR,
+       payload: {
+         message: 'toggle todo failed'
+       }
+     })
+   });
 
 /*
  * Multi-action creator: abstraction that represents multiple actions
@@ -71,11 +116,3 @@ export const fetchTodos = (filter) => (dispatch, getState) => {
     })
   });
 }
-
-
-export const setVisibilityFilter = (filter) => ({
-    type: ACTIONS.SET_VISIBILITY_FILTER,
-    payload: {
-      filter
-    }
-  })

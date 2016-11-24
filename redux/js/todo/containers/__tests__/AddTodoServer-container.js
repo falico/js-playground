@@ -1,14 +1,14 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import AddTodo from '../AddTodo'
+import AddTodoServer from '../AddTodoServer'
 import Store from '../../__mocks__/store'
 
-describe('AddTodo', () => {
+describe('AddTodoServer', () => {
 
   it("should not dispatch an action if the todo text is empty", () => {
     const store = Store({});
     const component = mount(
-      <AddTodo store={store} />
+      <AddTodoServer store={store} />
     );
 
     component.find('form').simulate('submit')
@@ -25,7 +25,7 @@ describe('AddTodo', () => {
   it('should dispatch an action on submit', () => {
     const store = Store({});
     const component = mount(
-      <AddTodo store={store} />
+      <AddTodoServer store={store} />
     );
 
     const input = component.find('input')

@@ -1,0 +1,12 @@
+exports[`AddTodoServer renders 1`] = `
+<div>
+  <form
+    onSubmit={[Function]}>
+    <input />
+    <button
+      type="submit">
+      Add Todo (Server)
+    </button>
+  </form>
+</div>
+`;

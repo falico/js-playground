@@ -1,7 +1,7 @@
 const Store = jest.fn((state) => {
   return {
     subscribe: () => {},
-    dispatch: jest.fn(() => {}),
+    dispatch: jest.fn(),
     getState: () => {
       return { ...state };
     }

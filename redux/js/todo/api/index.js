@@ -1,10 +1,10 @@
 import todos from '../__mocks__/todos'
+import * as utils from '../common/utils'
 
-const delay = (ms) =>
-  new Promise(resolve => setTimeout(resolve, ms));
+const time = 500;
 
 export const fetchTodos = (filter) =>
-  delay(500).then(() => {
+  utils.serverDelay(time).then(() => {
     switch (filter) {
       case 'all':
         return todos;
@@ -16,3 +16,21 @@ export const fetchTodos = (filter) =>
         throw new Error(`Unknown filter: ${filter}`);
     }
   });
+
+export const addTodo = (text) =>
+  utils.serverDelay(time).then(() => {
+      const todo = {
+        id: utils.generateUUID(),
+        text,
+        completed: false
+      }
+      todos.push(todo);
+      return todo;
+    });
+
+export const toggleTodo = (id) =>
+  utils.serverDelay(time).then(() => {
+      const todo = todos.find(t => t.id === id);
+      todo.completed = !todo.completed;
+      return todo;
+    });

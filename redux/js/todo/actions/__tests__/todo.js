@@ -112,4 +112,43 @@ describe('todo actions', () => {
       expect(dispatchMock.mock.calls[1][0].type).toEqual(ACTIONS.FETCH_TODOS_ERROR);
     })
   })
+
+  test('async action creator "serverAddTodo" dispatches an action on success', () => {
+    const dispatchMock = jest.fn();
+    const api = require('../api/index');
+    const newTodo = {
+      id: '123F',
+      text: 'Todo text',
+      completed: false
+    }
+
+    // Mock API call with the correct result
+    api.addTodo = (id) => new Promise(resolve => resolve(newTodo));
+
+    return actions.serverAddTodo(newTodo.text)(dispatchMock).then(() => {
+      expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.ADD_TODO_SUCCESS);
+      expect(dispatchMock.mock.calls[0][0].payload.id).toEqual('123F');
+      expect(dispatchMock.mock.calls[0][0].payload.text).toEqual(newTodo.text);
+      expect(dispatchMock.mock.calls[0][0].payload.completed).toEqual(false);
+    })
+  })
+
+  test('async action creator "serverToggleTodo" dispatches an action on success', () => {
+    const dispatchMock = jest.fn();
+    const api = require('../api/index');
+    const toggledTodo = {
+      id: '123F',
+      text: 'Todo text',
+      completed: true
+    }
+
+    // Mock API call with the correct result
+    api.toggleTodo = (id) => new Promise(resolve => resolve(toggledTodo));
+
+    return actions.serverToggleTodo(toggledTodo.id)(dispatchMock).then(response => {
+      expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.TOGGLE_TODO_SUCCESS);
+      expect(dispatchMock.mock.calls[0][0].payload.id).toEqual(toggledTodo.id);
+    })
+  })
+
 })

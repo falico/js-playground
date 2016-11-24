@@ -21,7 +21,7 @@ class RouteVisibleTodoList extends Component {
     }
   }
   render() {
-    const { toggleTodo, todos, errorMessage, isFetching } = this.props;
+    const { serverToggleTodo, todos, errorMessage, isFetching } = this.props;
     if (isFetching && !todos.length) {
       return <p>Loading ...</p>
     }
@@ -32,7 +32,7 @@ class RouteVisibleTodoList extends Component {
     }
     return <TodoList
             todos={todos}
-            onTodoClick={toggleTodo}
+            onTodoClick={serverToggleTodo}
             />
   }
 }
