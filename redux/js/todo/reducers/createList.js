@@ -7,11 +7,11 @@ const createList = (filter) => {
     switch (action.type) {
       case ACTIONS.FETCH_TODOS_SUCCESS:
         return (action.payload && action.payload.filter === filter) ?
-          action.payload.response.map(todo => todo.id) :
+          action.payload.response.result :
           state;
       case ACTIONS.ADD_TODO_SUCCESS:
         return (filter !== 'completed') ?
-          [...state, action.payload.id] :
+          [...state, action.payload.response.result] :
           state;
       default:
         return state;

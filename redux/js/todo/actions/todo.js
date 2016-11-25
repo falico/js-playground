@@ -52,7 +52,9 @@ export const setVisibilityFilter = (filter) => ({
    api.addTodo(text).then(todo => {
      dispatch({
        type: ACTIONS.ADD_TODO_SUCCESS,
-       payload: normalize(todo, schema.todo)
+       payload: {
+          response: normalize(todo, schema.todo) 
+       }
      })
    },
    error => {

@@ -70,11 +70,9 @@ describe('createList reducer', () => {
         type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter: 'myList',
-          response: [
-            {
-              id: 99
-            }
-          ]
+          response: {
+            result: [99]
+          }
         }
       })
     ).toEqual({
@@ -93,7 +91,9 @@ describe('createList reducer', () => {
       }, {
         type: ACTIONS.ADD_TODO_SUCCESS,
         payload: {
-          id: 5
+          response: {
+            result: 5
+          }
         }
       })
     ).toEqual({

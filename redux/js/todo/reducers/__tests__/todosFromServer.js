@@ -52,13 +52,18 @@ describe('todos from server reducer', () => {
         type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter: 'all',
-          response: [
-            {
-              id: 1,
-              text: 'Write tests',
-              completed: false
-            }
-          ]
+          response: {
+            entities: {
+              todos: {
+                1: {
+                  id: 1,
+                  text: 'Write tests',
+                  completed: false
+                }
+              }
+            },
+            result: [1]
+          }
         }
       })
     ).toEqual({
@@ -125,13 +130,18 @@ describe('todos from server reducer', () => {
         type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter: 'active',
-          response: [
-            {
-              id: 2,
-              text: 'Write documentation',
-              completed: false
-            }
-          ]
+          response: {
+            entities: {
+              todos: {
+                2: {
+                  id: 2,
+                  text: 'Write documentation',
+                  completed: false
+                }
+              }
+            },
+            result: [2]
+          }
         }
       })
     ).toEqual({
@@ -192,13 +202,18 @@ describe('todos from server reducer', () => {
         type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter: 'completed',
-          response: [
-            {
-              id: 1,
-              text: 'Write tests',
-              completed: true
-            }
-          ]
+          response: {
+            entities: {
+              todos: {
+                1: {
+                  id: 1,
+                  text: 'Write tests',
+                  completed: true
+                }
+              }
+            },
+            result: [1]
+          }
         }
       })
     ).toEqual({

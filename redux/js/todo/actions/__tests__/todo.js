@@ -133,8 +133,8 @@ describe('todo actions', () => {
     api.addTodo = (id) => new Promise(resolve => resolve(newTodo));
 
     return actions.serverAddTodo(newTodo.text)(dispatchMock).then(() => {
-      const todoId = dispatchMock.mock.calls[0][0].payload.result;
-      const todo = dispatchMock.mock.calls[0][0].payload.entities.todos[todoId];
+      const todoId = dispatchMock.mock.calls[0][0].payload.response.result;
+      const todo = dispatchMock.mock.calls[0][0].payload.response.entities.todos[todoId];
 
       expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.ADD_TODO_SUCCESS);
       expect(todo.id).toEqual(newTodo.id);
