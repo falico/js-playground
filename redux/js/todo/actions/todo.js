@@ -1,7 +1,10 @@
+import { normalize } from 'normalizr'
+
+import * as api from '../api/index'
+import * as schema from './schema'
 import { ACTIONS } from './constants'
 import { generateUUID } from '../common/utils'
-import * as api from '../api/index'
-import { getIsFetching } from '../reducers/index';
+import { getIsFetching } from '../reducers/index'
 
 export const addTodo = (text) => ({
     type: ACTIONS.ADD_TODO,
@@ -49,7 +52,7 @@ export const setVisibilityFilter = (filter) => ({
    api.addTodo(text).then(todo => {
      dispatch({
        type: ACTIONS.ADD_TODO_SUCCESS,
-       payload: todo
+       payload: normalize(todo, schema.todo)
      })
    },
    error => {
@@ -102,7 +105,7 @@ export const fetchTodos = (filter) => (dispatch, getState) => {
         type: ACTIONS.FETCH_TODOS_SUCCESS,
         payload: {
           filter,
-          response
+          response: normalize(response, schema.array_todo)
         }
       });
   },

@@ -49,16 +49,23 @@ describe('todo actions', () => {
       expect(dispatchMock.mock.calls[1][0].type).toEqual(ACTIONS.FETCH_TODOS_SUCCESS);
       expect(dispatchMock.mock.calls[1][0].payload).toEqual({
         filter: 'completed',
-        response: [{
-          id: 1,
-          text: 'Pick oranges',
-          completed: false
-        },
-        {
-          id: 2,
-          text: 'Read the news',
-          completed: true
-        }]
+        response: {
+          entities: {
+            todos: {
+              1: {
+                id: 1,
+                text: 'Pick oranges',
+                completed: false
+              },
+              2: {
+                id: 2,
+                text: 'Read the news',
+                completed: true
+              }
+            }
+          },
+          result: [1, 2]
+        }
       });
     })
   })
@@ -126,10 +133,13 @@ describe('todo actions', () => {
     api.addTodo = (id) => new Promise(resolve => resolve(newTodo));
 
     return actions.serverAddTodo(newTodo.text)(dispatchMock).then(() => {
+      const todoId = dispatchMock.mock.calls[0][0].payload.result;
+      const todo = dispatchMock.mock.calls[0][0].payload.entities.todos[todoId];
+
       expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.ADD_TODO_SUCCESS);
-      expect(dispatchMock.mock.calls[0][0].payload.id).toEqual('123F');
-      expect(dispatchMock.mock.calls[0][0].payload.text).toEqual(newTodo.text);
-      expect(dispatchMock.mock.calls[0][0].payload.completed).toEqual(false);
+      expect(todo.id).toEqual(newTodo.id);
+      expect(todo.text).toEqual(newTodo.text);
+      expect(todo.completed).toEqual(newTodo.completed);
     })
   })
 
