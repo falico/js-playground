@@ -157,7 +157,7 @@ describe('todo actions', () => {
 
     return actions.serverToggleTodo(toggledTodo.id)(dispatchMock).then(response => {
       expect(dispatchMock.mock.calls[0][0].type).toEqual(ACTIONS.TOGGLE_TODO_SUCCESS);
-      expect(dispatchMock.mock.calls[0][0].payload.id).toEqual(toggledTodo.id);
+      expect(dispatchMock.mock.calls[0][0].payload.response.result).toEqual(toggledTodo.id);
     })
   })
 

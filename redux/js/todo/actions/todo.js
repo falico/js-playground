@@ -53,7 +53,7 @@ export const setVisibilityFilter = (filter) => ({
      dispatch({
        type: ACTIONS.ADD_TODO_SUCCESS,
        payload: {
-          response: normalize(todo, schema.todo) 
+          response: normalize(todo, schema.todo)
        }
      })
    },
@@ -71,7 +71,7 @@ export const setVisibilityFilter = (filter) => ({
       dispatch({
         type: ACTIONS.TOGGLE_TODO_SUCCESS,
         payload: {
-          id
+          response: normalize(todo, schema.todo)
         }
       })
    },

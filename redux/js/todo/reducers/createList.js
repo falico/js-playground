@@ -3,6 +3,17 @@ import { ACTIONS } from '../actions/constants'
 
 const createList = (filter) => {
 
+  const handleToggle = (state, action) => {
+    const { result: toggledId, entities } = action.payload.response;
+    const { completed } = entities.todos[toggledId];
+    const shouldRemove = (!completed && filter === 'completed' ||
+                           completed && filter === 'active');
+    if (shouldRemove) {
+      return state.filter(id => id !== toggledId)
+    }
+    return state;
+  }
+
   const ids = (state = [], action) => {
     switch (action.type) {
       case ACTIONS.FETCH_TODOS_SUCCESS:
@@ -13,6 +24,8 @@ const createList = (filter) => {
         return (filter !== 'completed') ?
           [...state, action.payload.response.result] :
           state;
+      case ACTIONS.TOGGLE_TODO_SUCCESS:
+        return handleToggle(state, action);
       default:
         return state;
     }

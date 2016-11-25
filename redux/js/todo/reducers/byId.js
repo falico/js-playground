@@ -1,8 +1,7 @@
 import { ACTIONS } from '../actions/constants'
 
 const byId = (state = {}, action) => {
-  if (action.type === ACTIONS.FETCH_TODOS_SUCCESS ||
-      action.type === ACTIONS.ADD_TODO_SUCCESS) {
+  if (action.payload && action.payload.response) {
     return {
       ...state,
       ...action.payload.response.entities.todos
